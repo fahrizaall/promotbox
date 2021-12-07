@@ -1,0 +1,30 @@
+.footer {
+  padding: 15px;
+
+  background-color: lightgray;
+
+  .credit {
+    text-align: left;
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .footer {
+    padding: 15px 50px;
+
+    .credit {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .footer {
+    padding: 15px 90px;
+
+    .credit {
+      font-size: 12px;
+    }
+  }
+}

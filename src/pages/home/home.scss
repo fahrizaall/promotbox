@@ -1,0 +1,51 @@
+$card-width: 230px;
+$row-increment: 10px;
+$card-border-radius: 16px;
+$card-small: 26;
+$card-medium: 33;
+$card-large: 45;
+
+.home-container {
+  main {
+    display: flex;
+    justify-content: center;
+
+    .pin-container {
+      // position: absolute;
+      // left: 50%;
+
+      width: 90vw;
+      margin: 0;
+      padding: 0;
+
+      // transform: translateX(-50%);
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, $card-width);
+      grid-auto-rows: $row-increment;
+      justify-content: center;
+
+      background-color: black;
+    }
+
+    .card {
+      margin: 15px 10px;
+      padding: 0;
+
+      border-radius: $card-border-radius;
+      background-color: red;
+    }
+
+    .card-small {
+      grid-row-end: span $card-small;
+    }
+
+    .card-medium {
+      grid-row-end: span $card-medium;
+    }
+
+    .card-large {
+      grid-row-end: span $card-large;
+    }
+  }
+}
