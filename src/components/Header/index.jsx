@@ -21,8 +21,10 @@ const Header = () => {
       <div className={`search ${showSearch ? "show" : "hide"}`}>
         <form action="" className="search-form">
           <input type="text" className="search-field" placeholder="Search..." />
-          <button className="search-btn">O</button>
         </form>
+        <p className="cancle-btn" onClick={() => setShowSearch(false)}>
+          cancle
+        </p>
       </div>
     </header>
   );
