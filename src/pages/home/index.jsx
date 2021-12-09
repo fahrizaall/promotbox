@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { Header, Footer } from "../../components";
 import { poster1, poster2, poster3 } from "../../assets";
 import "./home.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
-
   // get random class to define card size
   const randomCardSize = () => {
     let cardClass = ["card-small", "card-medium", "card-large"];
