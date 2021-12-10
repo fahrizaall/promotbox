@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
 import { Header, Footer, PosterCard } from "../../components";
 import { poster1, poster2, poster3 } from "../../assets";
 import "./home.scss";
 import { Link, useNavigate } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
+import React, { useContext, useEffect } from "react";
+import "./home.scss";
+import { UserContext } from "../../App";
 
 const Home = () => {
-  const navigate = useNavigate();
-
+  const testContext = useContext(UserContext);
   // get random class to define card size
   const randomCardSize = () => {
     let cardClass = ["card-small", "card-medium", "card-large"];
@@ -29,7 +30,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log(randomCardSize());
+    console.log(testContext.isLogin);
   });
 
   useEffect(() => {

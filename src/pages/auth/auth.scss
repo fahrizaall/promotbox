@@ -1,0 +1,149 @@
+@import "../../App.scss";
+
+.auth-container {
+  position: relative;
+  display: inline-block;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #083055;
+
+  .brand {
+    margin-top: 70px;
+    color: white;
+  }
+
+  .auth-box {
+    width: 90vw;
+    margin: auto;
+    background-color: white;
+    border: none;
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+
+      cursor: pointer;
+
+      color: white;
+      background-color: #3f4f5e;
+      border: none;
+    }
+
+    .active {
+      font-weight: 600;
+      color: $dark-accent;
+      background-color: white;
+    }
+
+    .auth-form {
+      position: relative;
+
+      .google-btn {
+        margin: 35px 10% 10px 10%;
+        width: 80%;
+        height: 40px;
+
+        border: none;
+        background-color: #dd4b39;
+
+        svg {
+          height: 70%;
+        }
+      }
+
+      .p-or {
+        margin: 0;
+        font-size: 13px;
+      }
+      .p-or::before {
+        content: "";
+        position: absolute;
+        left: 10%;
+        top: 95px;
+        height: 1px;
+        width: 80%;
+        background-color: grey;
+      }
+      .p-or::after {
+        content: "or";
+        position: absolute;
+        left: 47.5%;
+        top: 87px;
+        width: 20px;
+        height: 15px;
+        line-height: 15px;
+        z-index: 0;
+        background-color: white;
+      }
+
+      .box-form {
+        form {
+          display: flex;
+          flex-direction: column;
+          padding: 10px 10% 10% 10%;
+
+          input {
+            margin: 5px 0 10px 0;
+            padding: 10px;
+          }
+
+          label {
+            font-size: 12px;
+            text-align: left;
+          }
+
+          button {
+            height: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            background-color: $btn;
+          }
+        }
+      }
+
+      .login {
+        form {
+          a {
+            font-size: 13px;
+            text-decoration: none;
+            color: blue;
+            margin-bottom: 35px;
+            text-align: right;
+          }
+        }
+      }
+
+      .register {
+        form .agreements {
+          display: flex;
+          align-items: center;
+          margin: 0 0 35px 0;
+
+          p {
+            margin: 5px 0 0 10px;
+            font-size: 13px;
+            text-decoration: none;
+            text-align: left;
+
+            a {
+              text-decoration: none;
+              color: blue;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .auth-box {
+    max-width: 400px;
+  }
+}
