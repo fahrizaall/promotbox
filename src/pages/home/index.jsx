@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { Header, Footer } from "../../components";
+import { Header, Footer, PosterCard } from "../../components";
 import { poster1, poster2, poster3 } from "../../assets";
 import "./home.scss";
 import { Link, useNavigate } from "react-router-dom";
+import InfiniteScroll from 'react-infinite-scroller';
+import axios from 'axios';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,9 +18,23 @@ const Home = () => {
     return cardClass[rand];
   };
 
+  function loadContents(count) {
+    count = count ? count : 20;
+    
+    axios.get(`${process.env.REACT_APP_HOST}/api/v1/items/all`)
+    .then((e) => {
+
+    })
+    .catch(console.error)
+  }
+
   useEffect(() => {
     console.log(randomCardSize());
   });
+
+  useEffect(() => {
+    //loadContents()
+  }, [])
 
   return (
     <div className="home-container">
@@ -36,11 +52,8 @@ const Home = () => {
       </div>
       <main>
         <div className="poster-container">
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
+          <PosterCard additionalClass={randomCardSize()} imageUrl={poster1} posterId={"89239jkdsasad"} />
+
           <div className={`card ${randomCardSize()}`}>
             <Link to="/poster">
               <img className="img" src={poster1} alt="" />
