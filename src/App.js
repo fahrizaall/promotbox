@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Detail from "./pages/detail";
+import ErrorNotFound from "./pages/error/404";
 import Home from "./pages/home";
 import Auth from "./pages/auth";
 import CreatePost from "./pages/createPost";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/poster" element={<Detail />} />
             <Route path="/login" element={<Auth />} />
             <Route path="/" element={<Home context={UserContext} />} />
+            <Route path="*" element={<ErrorNotFound />} />
           </Routes>
         </BrowserRouter>
       </div>
