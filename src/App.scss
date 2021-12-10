@@ -4,6 +4,17 @@ font-family: 'Noto Sans', sans-serif;
 font-family: 'Roboto', sans-serif;
  */
 
+// handle style variable
+
+// color variable
+$btn: #3972dd;
+$dark-accent: #020e1a;
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
 .App {
   text-align: center;
   font-family: "Noto Sans", sans-serif;

@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Header, Footer } from "../../components";
 import { poster1, poster2, poster3 } from "../../assets";
 import "./home.scss";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const Home = () => {
+  const testContext = useContext(UserContext);
   // get random class to define card size
   const randomCardSize = () => {
     let cardClass = ["card-small", "card-medium", "card-large"];
@@ -15,7 +17,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log(randomCardSize());
+    console.log(testContext.isLogin);
   });
 
   return (

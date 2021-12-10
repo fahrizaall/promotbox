@@ -1,0 +1,150 @@
+@import "../../App.scss";
+
+.create-post-container {
+  .form-box {
+    width: 90vw;
+    margin: 20px auto;
+
+    .img-wrapper {
+      position: relative;
+      min-height: 450px;
+      margin: 10px 0;
+      border-radius: 10px;
+      // border: 1px solid lightgray;
+      box-shadow: 1px 1px 5px lightgray;
+
+      label {
+        width: 100%;
+        height: 450px;
+        cursor: pointer;
+        color: lightgray;
+      }
+      label::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        height: 0;
+        width: 100%;
+        height: 100%;
+      }
+      label::after {
+        content: "Upload image";
+        position: absolute;
+        top: calc(50% - 24px);
+        left: calc(50% - 68px);
+        padding: 10px;
+        font-weight: 600;
+        border-radius: 15px;
+        border: 2px solid lightgray;
+      }
+      label:hover {
+        color: white;
+      }
+      label:hover::after {
+        border: 2px solid white;
+      }
+      label:hover::before {
+        background-color: #2a2a52;
+        border-radius: 10px;
+      }
+
+      input {
+        display: none;
+      }
+    }
+    .img-wrapper:hover {
+      border-radius: 10px;
+      // border: 2px solid white;
+    }
+
+    .other-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      margin: 10px 0;
+      padding: 10%;
+      // background-color: turquoise;
+
+      font-size: 14px;
+
+      label {
+        margin: 0 0 5px 0;
+      }
+
+      textarea {
+        resize: none;
+        width: calc(100% - 10px);
+        height: 400px;
+        padding: 5px;
+        margin: 0 0 10px 0;
+      }
+
+      /* width */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #aaa;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #888;
+      }
+
+      button {
+        padding: 10px 20px;
+        color: white;
+        background-color: $btn;
+        border: none;
+      }
+
+      .tag-input {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0 0 10px 0;
+
+        #tag {
+          height: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .create-post-container {
+    .form-box {
+      display: flex;
+      justify-content: center;
+      height: 80vh;
+      max-width: 750px;
+      padding: 10px 20px;
+      // border: 1px solid lightgray;
+      box-shadow: 1px 1px 10px 0px lightgray;
+
+      border-radius: 10px;
+
+      .img-wrapper {
+        width: 400px;
+
+        label::after {
+          opacity: 0.7;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 920px) {
+}
