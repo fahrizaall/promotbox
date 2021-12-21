@@ -46,15 +46,32 @@ const Home = () => {
       dataQuery = query(collection(db, "posters"), limit(50));
     }
 
-    const querySnapshots = await getDocs(dataQuery);
-    querySnapshots.forEach((doc) => {
-      let rawData = doc.data();
-      data.push(rawData);
-    });
+    getDocs(dataQuery)
+    .then((querySnapshots) => {
+      querySnapshots.forEach((doc) => {
+        let rawData = doc.data();
+        rawData.doc_id = doc.id
+        
+        getDownloadURL(ref(storage, `poster-images/${rawData.uid}/${rawData.filename}`))
+        .then((e) => {
+          rawData.imageUrl = e.toString()
+          data.push(rawData);
+          console.log(rawData)
+        })
+        .then(() => {
+          setPosters(data);
+          setLoadMoreToken(data.length);
+        })
+        .catch(console.error)
+        
 
-    // data = generateImgURL(data);
-    setPosters(data);
-    setLoadMoreToken(data.length);
+        
+      });
+    })
+    
+
+    //generateImgURL(data);
+    
   };
 
   const generateImgURL = (dataPoster) => {
@@ -89,7 +106,7 @@ const Home = () => {
       <Header />
       <div className="tag">
         <div className="fix-item-container">
-          <p className="tag-item selected">all</p>
+          <p className="tag-item selected">All</p>
         </div>
         <div className="tag-overflow">
           <p className="tag-item">Design</p>
@@ -105,143 +122,13 @@ const Home = () => {
             ? posters.map((poster) => (
                 <PosterCard
                   additionalClass={randomCardSize()}
-                  imageUrl={poster.filename}
-                  posterId={"89239jkdsasad"}
-                  key={poster.id}
+                  imageUrl={poster.imageUrl}
+                  posterId={poster.doc_id}
+                  key={poster.doc_id}
                 />
               ))
             : ""}
-          <PosterCard
-            additionalClass={randomCardSize()}
-            imageUrl={poster1}
-            posterId={"89239jkdsasad"}
-          />
-
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster2} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster3} alt="" />
-            </Link>
-          </div>
-          <div className={`card ${randomCardSize()}`}>
-            <Link to="/poster">
-              <img className="img" src={poster1} alt="" />
-            </Link>
-          </div>
+          
         </div>
       </main>
       <Footer />

@@ -118,7 +118,7 @@ const CreatePost = () => {
             required={true}
           ></textarea>
 
-          <button onClick={handleSubmit}>Uplod Poster</button>
+          <button onClick={handleSubmit}>Upload Poster</button>
         </div>
       </div>
     </div>

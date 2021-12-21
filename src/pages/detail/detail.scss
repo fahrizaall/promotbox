@@ -70,13 +70,25 @@ img {
       .account {
         display: flex;
 
+        .author-info{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          margin-left: 16px;
+
+          span {
+            font-size: 12px;
+          }
+        }
+
         .p-pic {
           width: 50px;
           height: 50px;
         }
 
         p {
-          margin: 16px;
+          
           font-size: 18px;
 
           font-weight: 600;
@@ -84,6 +96,7 @@ img {
       }
 
       .desc {
+        margin-top: 12px;
         text-align: left;
       }
     }

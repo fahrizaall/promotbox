@@ -94,7 +94,6 @@ const Auth = () => {
           <GoogleIcon8
             stroke="white"
             fill="white"
-            stroke="white"
             strokeWidth="0"
           />
           <p className="p-or">or</p>

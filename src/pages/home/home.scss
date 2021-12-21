@@ -3,6 +3,7 @@ $card-medium: 29;
 $card-large: 33;
 
 .home-container {
+
   .tag {
     display: flex;
 
@@ -50,6 +51,7 @@ $card-large: 33;
   }
 
   main {
+    min-height: 75vh;
     display: flex;
     justify-content: center;
 

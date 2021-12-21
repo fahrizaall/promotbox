@@ -3,23 +3,28 @@ import ReactMarkdown from "react-markdown";
 import "./detail.scss";
 import { ReactComponent as Arrowleft } from "../../assets/icon/arrowleft.svg";
 import { ReactComponent as Morehorizontal } from "../../assets/icon/morehorizontal.svg";
-import { poster1, poster2, poster3, user1 } from "../../assets";
+import { user1 } from "../../assets";
 import { Header } from "../../components";
-import { useNavigate } from "react-router-dom";
-import { doc, getDoc, getDocs } from "firebase/firestore/lite";
+import { useNavigate, useParams } from "react-router-dom";
+import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
 
 const Detail = () => {
   const navigate = useNavigate();
+  const param = useParams();
+  const posterId = param.id;
+  
+  const month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
+  
   const { user } = useAuth();
   const [showMore, setShowMore] = useState(false);
   const node = useRef();
   const [data, setData] = useState({});
 
   const getData = async () => {
-    let docSnap = await getDoc(doc(db, "posters", "2UCKwyrKNO9jgEobygFF"));
+    let docSnap = await getDoc(doc(db, "posters", posterId));
 
     if (docSnap.exists()) {
       let data = docSnap.data();
@@ -28,6 +33,9 @@ const Detail = () => {
       getDownloadURL(ref(storage, `poster-images/${data.uid}/${data.filename}`))
         .then((url) => {
           data.filename = url.toString();
+          console.log(data.timestamp.seconds)
+          let date = new Date(data.timestamp.seconds*1000)
+          data.stringifiedDate = `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()}`
           setData(data);
         })
         .catch((error) => {
@@ -96,12 +104,16 @@ const Detail = () => {
             <div className="p-pic">
               <img src={user1} alt="" />
             </div>
-            <p>{user.displayName}</p>
+            <div className="author-info">
+              <p>{data.displayName}</p>
+              <span>{data.stringifiedDate}</span>
+            </div>
+            
+            
           </div>
 
           <div className="desc">
             <p>{data.caption}</p>
-            <p>test \n test</p>
           </div>
         </div>
       </main>
