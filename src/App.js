@@ -14,7 +14,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/poster" element={<Detail />} />
+            <Route path="/poster/:id" element={<Detail />} />
             <Route path="/login" element={<Auth />} />
             <Route path="/" element={<Home />} />
             <Route path="*" element={<ErrorNotFound />} />
