@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ReactComponent as GoogleIcon8 } from "../../assets/icon/icons8-google.svg";
 import "./auth.scss";
+import { useAuth } from "../../contexts/authContext";
+// import { UserContext } from "../../App";
 
 const Auth = () => {
-  const [auth, setAuth] = useState(true);
+  // const auth = getAuth();
+  // const user = useContext(UserContext);
+  const { user, register, loginWithEmail } = useAuth();
+  const navigate = useNavigate();
+  const [registered, setRegistered] = useState(true);
 
   const [loginForm, setLoginForm] = useState({
-    usernameOrEmail: "",
-    password: "",
+    loginEmail: "",
+    loginPassword: "",
   });
 
   const [registerForm, setRegisterForm] = useState({
-    username: "",
-    email: "",
-    password: "",
+    registerEmail: "",
+    registerPassword: "",
     agreement: false,
   });
 
@@ -27,7 +32,7 @@ const Auth = () => {
       value = e.target.checked;
     }
 
-    if (auth) {
+    if (registered) {
       setLoginForm({
         ...loginForm,
         [name]: value,
@@ -44,14 +49,27 @@ const Auth = () => {
     e.preventDefault();
 
     let form;
-    auth ? (form = loginForm) : (form = registerForm);
+    registered ? (form = loginForm) : (form = registerForm);
+
+    if (registered) {
+      form = loginForm;
+      loginWithEmail(form.loginEmail, form.loginPassword);
+    } else {
+      form = registerForm;
+
+      if (registerForm.agreement) {
+        register(form.registerEmail, form.registerPassword);
+      }
+    }
 
     console.log(form);
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
+  useEffect(() => {
+    if (user !== null) {
+      navigate("/");
+    }
+  }, user);
 
   return (
     <div className="auth-container">
@@ -60,42 +78,27 @@ const Auth = () => {
       <div className="auth-box">
         <div className="tabs">
           <div
-            className={`login ${auth ? "active" : ""}`}
-            onClick={() => setAuth(true)}
+            className={`login ${registered ? "active" : ""}`}
+            onClick={() => setRegistered(true)}
           >
             <p>Login</p>
           </div>
           <div
-            className={`register ${auth ? "" : "active"}`}
-            onClick={() => setAuth(false)}
+            className={`register ${registered ? "" : "active"}`}
+            onClick={() => setRegistered(false)}
           >
             <p>Register</p>
           </div>
         </div>
         <div className="auth-form">
-          <GoogleLogin
-            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-            render={(renderProps) => (
-              <button
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                className="google-btn"
-              >
-                <GoogleIcon8
-                  stroke="white"
-                  fill="white"
-                  stroke="white"
-                  strokeWidth="0"
-                />
-              </button>
-            )}
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
+          <GoogleIcon8
+            stroke="white"
+            fill="white"
+            stroke="white"
+            strokeWidth="0"
           />
           <p className="p-or">or</p>
-          {auth ? (
+          {registered ? (
             <div className="box-form login">
               <form
                 name="login-form"
@@ -103,18 +106,18 @@ const Auth = () => {
                 id="login-form"
                 onSubmit={handleSubmit}
               >
-                <label htmlFor="usernameOrEmail">Username or email</label>
+                <label htmlFor="loginEmail">Email</label>
                 <input
                   type="text"
-                  name="usernameOrEmail"
-                  placeholder="username or email"
+                  name="loginEmail"
+                  placeholder="Email"
                   onChange={handleChange}
                 />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="loginPassword">Password</label>
 
                 <input
                   type="password"
-                  name="password"
+                  name="loginPassword"
                   placeholder="password"
                   onChange={handleChange}
                 />
@@ -130,25 +133,18 @@ const Auth = () => {
                 id="register-form"
                 onSubmit={handleSubmit}
               >
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  placeholder="username"
-                  name="username"
-                  onChange={handleChange}
-                />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="registerEmail">Email</label>
                 <input
                   type="email"
-                  placeholder="email"
-                  name="email"
+                  placeholder="Email"
+                  name="registerEmail"
                   onChange={handleChange}
                 />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="registerPassword">Password</label>
                 <input
                   type="password"
                   placeholder="password"
-                  name="password"
+                  name="registerPassword"
                   onChange={handleChange}
                 />
 

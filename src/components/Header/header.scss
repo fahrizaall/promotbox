@@ -34,34 +34,72 @@
         color: grey;
       }
     }
+  }
 
-    .btn {
-      padding: 2px 10px;
-      margin: 0 5px;
-      color: grey;
-      font-weight: 600;
-      // background-color: blueviolet;
-    }
+  .user {
+    position: relative;
+    height: 30px;
+    margin-left: 10px;
 
-    .btn:hover {
-      color: $dark-accent;
-    }
+    cursor: pointer;
 
-    a {
-      text-decoration: none;
-    }
+    .user-menu {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      padding: 15px 25px;
 
-    .btn-register,
-    .btn-create-post {
-      border: 2px solid grey;
-      border-radius: 15px;
+      text-align: left;
+
+      border-radius: 10px;
+      box-shadow: 1px 1px 10px lightgray;
+      background-color: white;
+
+      .menu-opt {
+        a,
+        p {
+          display: block;
+          width: 150px;
+          text-decoration: none;
+          color: grey;
+        }
+        p {
+          margin: 0;
+        }
+        a:hover,
+        p:hover {
+          font-weight: 600;
+          color: $dark-accent;
+        }
+
+        hr {
+          color: grey;
+        }
+      }
+
+      .menu-opt-login {
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+
+        p {
+          width: 150px;
+        }
+        svg {
+          width: 30px;
+        }
+      }
+      .menu-opt-login:hover {
+        p {
+          color: $dark-accent;
+          font-weight: 600;
+        }
+        svg {
+          stroke: $dark-accent;
+          fill: $dark-accent;
+        }
+      }
     }
-    .btn-register:hover,
-    .btn-create-post:hover {
-      border: 2px solid $dark-accent;
-    }
-    // .auth-btn {
-    // }
   }
 
   .search {

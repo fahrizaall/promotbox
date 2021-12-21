@@ -141,11 +141,17 @@ img {
       .info {
         margin: 0;
         padding: 25px;
+        min-width: 200px;
+        width: 50%;
 
         .desc {
           max-height: 570px;
 
           overflow-y: scroll;
+
+          p {
+            white-space: pre-wrap;
+          }
         }
         /* width */
         ::-webkit-scrollbar {

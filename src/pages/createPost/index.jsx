@@ -1,11 +1,17 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { UserContext } from "../../App";
+import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components";
+import { useAuth } from "../../contexts/authContext";
+import { db, storage } from "../../firebase-config";
 import "./createpost.scss";
 
 const CreatePost = () => {
-  const context = useContext(UserContext);
+  const tag = ["olahraga", "desain", "sastra", "kreatif", "programming"];
+  const navigate = useNavigate();
+  const date = new Date();
+  const { user } = useAuth();
   const [images, setImages] = useState();
   const [imageURLs, setImageURLs] = useState();
 
@@ -13,11 +19,17 @@ const CreatePost = () => {
     filename: "",
     tag: "",
     caption: "",
+    owner: "",
+    ownerId: "",
+    timestamp: serverTimestamp(),
   });
 
   const handleImage = (e) => {
     setImages(e.target.files[0]);
-    setForm({ ...form, filename: e.target.files[0].name });
+    setForm({
+      ...form,
+      filename: e.target.files[0].name,
+    });
   };
 
   const handleChange = (e) => {
@@ -30,10 +42,30 @@ const CreatePost = () => {
     });
   };
 
-  const handleSubmit = () => {
-    let submitForm = form;
+  const handleSubmit = async () => {
+    if (form.filename.length > 0 && form.caption.length > 0) {
+      let finalForm = form;
 
-    console.log(submitForm);
+      finalForm.displayName = user.displayName;
+      finalForm.uid = user.uid;
+      finalForm.filename = date.getTime() + "_" + finalForm.filename;
+
+      let storageRef = ref(
+        storage,
+        `poster-images/${user.uid}/${finalForm.filename}`
+      );
+      let newPosterRef = doc(collection(db, "posters"));
+
+      try {
+        setDoc(newPosterRef, finalForm);
+        uploadBytes(storageRef, images);
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("fill all the field");
+    }
   };
 
   useEffect(() => {
@@ -57,6 +89,7 @@ const CreatePost = () => {
             accept="image/*"
             name="image"
             id="image"
+            required={true}
             onChange={handleImage}
           />
         </div>
@@ -64,11 +97,11 @@ const CreatePost = () => {
         <div className="other-wrapper">
           <div className="tag-input">
             <label htmlFor="tag">Kategori</label>
-            <select name="tag" id="tag" onChange={handleChange}>
-              <option value="none" selected disabled hidden>
+            <select name="tag" id="tag" onChange={handleChange} required={true}>
+              <option value="" selected disabled hidden>
                 Select an Option
               </option>
-              {context.tag.map((data, i) => (
+              {tag.map((data, i) => (
                 <option value={data} key={i}>
                   {data}
                 </option>
@@ -82,6 +115,7 @@ const CreatePost = () => {
             cols="30"
             rows="10"
             onChange={handleChange}
+            required={true}
           ></textarea>
 
           <button onClick={handleSubmit}>Uplod Poster</button>
