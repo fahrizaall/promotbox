@@ -10,6 +10,7 @@ import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
+import axios from "axios";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ const Detail = () => {
     console.log(user);
   }, [user]);
 
+
   return (
     <div className="detail-container">
       <Header />
@@ -87,7 +89,10 @@ const Detail = () => {
           />
           {showMore ? (
             <div className="more-detail" ref={node}>
-              <p>Download Poster</p>
+              {
+                data.filename ?
+                <a href={data.filename} download={`promotbox_poster${data.uid}.jpg`}><p>Download poster</p></a> : false
+              }
               <p>Share</p>
             </div>
           ) : (

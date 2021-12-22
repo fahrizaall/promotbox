@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Auth from "./pages/auth";
 import CreatePost from "./pages/createPost";
 import { AuthProvider } from "./contexts/authContext";
+import Me from "./pages/me";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/poster/:id" element={<Detail />} />
+            <Route path="/me" element={<Me />} />
             <Route path="/login" element={<Auth />} />
             <Route path="/" element={<Home />} />
             <Route path="*" element={<ErrorNotFound />} />
