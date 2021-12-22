@@ -7,6 +7,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./home.scss";
 import { useAuth } from "../../contexts/authContext";
 import { getDownloadURL, list, ref } from "firebase/storage";
+import { useParams } from 'react-router-dom'
 import {
   collection,
   query,
@@ -18,6 +19,7 @@ import {
 import { db, storage } from "../../firebase-config";
 
 const Home = () => {
+  let params = useParams()
   const { user } = useAuth();
   const [posters, setPosters] = useState([]);
   const [loadMoreToken, setLoadMoreToken] = useState(false);
@@ -56,7 +58,6 @@ const Home = () => {
         .then((e) => {
           rawData.imageUrl = e.toString()
           data.push(rawData);
-          console.log(rawData)
         })
         .then(() => {
           setPosters(data);
@@ -101,6 +102,15 @@ const Home = () => {
     console.log(posters);
   }, [posters]);
 
+  function setTagSearchParam(sparam) {
+    if(sparam && sparam != '') {
+      let param = new URLSearchParams()
+      param.set('tag', sparam)
+      console.log(sparam, param.get('tag'))
+
+    }
+  }
+
   return (
     <div className="home-container">
       <Header />
@@ -109,7 +119,7 @@ const Home = () => {
           <p className="tag-item selected">All</p>
         </div>
         <div className="tag-overflow">
-          <p className="tag-item">Design</p>
+          <p className="tag-item" onClick={()=>setTagSearchParam('design')}>Design</p>
           <p className="tag-item">Drawing</p>
           <p className="tag-item">Programming</p>
           <p className="tag-item">Writing</p>

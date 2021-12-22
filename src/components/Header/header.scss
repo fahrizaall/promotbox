@@ -12,9 +12,20 @@
   box-shadow: 0 1px 10px rgb(236, 236, 236);
 
   .header-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+
+    text-decoration: none;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 24px;
+    color: #1b9ab4;
+
+    img {
+      width: 2rem;
+    }
   }
 
   .header-icon {
@@ -41,7 +52,9 @@
     height: 30px;
     margin-left: 10px;
 
-    cursor: pointer;
+    .user-icon {
+      cursor: pointer;
+    }
 
     .user-menu {
       position: absolute;
@@ -56,12 +69,45 @@
       background-color: white;
 
       .menu-opt {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .menu-logout {
+          border-top: 1px solid lightgray;
+          padding-top: 8px;
+        }
+
+        .menu-logout:hover {
+          color: red;
+        }
+
+        .menu-user-info {
+          min-height: 40px;
+
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 8px;
+
+          .menu-user-info-pp {
+            width: 2rem;
+          }
+
+          span {
+            font-weight: 600;
+            cursor: pointer;
+          }
+        }
+
         a,
         p {
           display: block;
           width: 150px;
           text-decoration: none;
           color: grey;
+          cursor: pointer;
         }
         p {
           margin: 0;

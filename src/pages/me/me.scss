@@ -1,0 +1,56 @@
+.profile-picture {
+    border-radius: 50%;
+}
+
+.me-wrapper {
+
+    .divider {
+        border-top: 3px solid lightgray;
+        margin: 1rem 2.75rem 1rem 2.75rem;
+    }
+
+    .me-contents {
+        // margin: 0rem 3rem 0rem 3rem;
+
+        display: flex;
+
+        @media (min-width: 768px) {
+            // margin: 0rem 5rem 0rem 5rem;
+            justify-content: center;
+        }
+
+        .me-card {
+            @media screen and (min-width: 768px) {
+                width: 250px;
+            }
+        }
+    }
+
+    .me-header {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+
+        @media(min-width: 768px) {
+
+        }
+
+        img {
+            width: 8rem;
+            height: 8rem;
+        }
+        
+        .user-name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 16pt;
+        }
+
+        .user-email {
+            font-size: 10pt;
+        }
+    }
+
+}

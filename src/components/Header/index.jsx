@@ -51,26 +51,30 @@ const Header = () => {
 
   return (
     <header className="header">
-      <h1 className="header-title" onClick={() => navigate("/")}>
-        PromotBox
-      </h1>
+      <Link className="header-title" to="/">
+        <img src="/logo231.png" /> PromotBox
+      </Link>
       <div className="header-icon">
         <span className="search-icon" onClick={() => setShowSearch(true)}>
           <SearchIco stroke="grey" fill="grey" />
         </span>
 
         <div className="user" onClick={() => setShowUserMenu(true)}>
-          <img src={user1} alt="" />
+          <img src={user && user.photoURL ? user.photoURL : user1} alt="" className="user-icon profile-picture" />
           <div
             className={`user-menu ${showUserMenu ? "show" : "hide"}`}
             ref={node}
           >
             {user !== null ? (
               <div className="menu-opt">
-                <Link to="/">Poster Saya</Link>
+                <div className="menu-user-info">
+                  <img src={user && user.photoURL ? user.photoURL : user1} alt="user picture" className="menu-user-info-pp profile-picture" />
+                  <span onClick={()=>navigate("/me")}>{user.displayName}</span>
+                </div>
+                <Link to="/me">Poster Saya</Link>
                 <Link to="/create-post">Upload Poster</Link>
-                <hr className="solid" />
-                <p onClick={handleLogout}>Logout</p>
+                {/* <hr className="solid" /> */}
+                <p className="menu-logout" onClick={handleLogout}>Logout</p>
               </div>
             ) : (
               <div onClick={handleLogin} className="menu-opt-login">
@@ -92,7 +96,7 @@ const Header = () => {
           />
         </form>
         <p className="cancle-btn" onClick={() => setShowSearch(false)}>
-          cancle
+          Cancel
         </p>
       </div>
     </header>
