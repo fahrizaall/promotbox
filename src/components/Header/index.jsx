@@ -60,7 +60,7 @@ const Header = () => {
         </span>
 
         <div className="user" onClick={() => setShowUserMenu(true)}>
-          <img src={user.photoURL ? user.photoURL : user1} alt="" className="user-icon profile-picture" />
+          <img src={user && user.photoURL ? user.photoURL : user1} alt="" className="user-icon profile-picture" />
           <div
             className={`user-menu ${showUserMenu ? "show" : "hide"}`}
             ref={node}
@@ -68,7 +68,7 @@ const Header = () => {
             {user !== null ? (
               <div className="menu-opt">
                 <div className="menu-user-info">
-                  <img src={user.photoURL ? user.photoURL : user1} alt="user picture" className="menu-user-info-pp profile-picture" />
+                  <img src={user && user.photoURL ? user.photoURL : user1} alt="user picture" className="menu-user-info-pp profile-picture" />
                   <span onClick={()=>navigate("/me")}>{user.displayName}</span>
                 </div>
                 <Link to="/me">Poster Saya</Link>
