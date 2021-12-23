@@ -6,6 +6,7 @@ import { query, collection, where, getDocs } from 'firebase/firestore'
 import { db, storage } from '../../firebase-config'
 import { getDownloadURL, list, ref } from "firebase/storage";
 import { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 export default function Me() {
 
     const { user } = useAuth()
@@ -53,6 +54,9 @@ export default function Me() {
             {
                 user ?
                 <div>
+                    <Helmet>
+                        <title>Profil {user.displayName} - PromotBox</title>
+                    </Helmet>
                     <div className="me-header">
                         <img src={user.photoURL ? user.photoURL : user1} alt="" className="profile-picture" />
                         <p className="user-name">{user.displayName}</p>

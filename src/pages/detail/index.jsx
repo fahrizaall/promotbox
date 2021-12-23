@@ -10,7 +10,7 @@ import { doc, getDoc, getDocs } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
-import axios from "axios";
+import Helmet from 'react-helmet';
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -78,6 +78,10 @@ const Detail = () => {
   return (
     <div className="detail-container">
       <Header />
+
+      <Helmet>
+        <title>Detail Poster - PromotBox</title>
+      </Helmet>
 
       <div className="navigation">
         <Arrowleft stroke="grey" fill="grey" onClick={() => navigate("/")} />
