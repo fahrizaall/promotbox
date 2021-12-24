@@ -1,16 +1,31 @@
 import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
 import { AlertBox, Header } from "../../components";
 import { useAuth } from "../../contexts/authContext";
 import { db, storage } from "../../firebase-config";
 import "./createpost.scss";
 
 const CreatePost = () => {
-  const tag = ["olahraga", "desain", "sastra", "kreatif", "programming"];
-  const navigate = useNavigate();
+  const tag = [
+    "Seni",
+    "Seni Digital",
+    "Karya Tulis",
+    "Teknologi",
+    "Olahraga",
+    "E Sport",
+    "Sosial",
+    "Sains",
+    "Makanan",
+    "Ekonomi",
+    "Desain Teknis",
+    "Fotografi/Videografi",
+    "Bahasa",
+    "Film",
+    "Agama",
+  ];
+
   const date = new Date();
   const { user } = useAuth();
   const [alert, setAlert] = useState();
@@ -98,7 +113,7 @@ const CreatePost = () => {
           </label>
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             name="image"
             id="image"
             required={true}

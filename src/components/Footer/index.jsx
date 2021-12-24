@@ -4,9 +4,7 @@ import "./footer.scss";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p className="credit">
-        2021 Muhammad Fahrizal All copyright is reserverd
-      </p>
+      <p className="credit">&copy; {new Date().getFullYear()} PromotBox</p>
     </footer>
   );
 };

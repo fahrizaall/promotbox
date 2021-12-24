@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ReactComponent as GoogleIcon8 } from "../../assets/icon/icons8-google.svg";
 import "./auth.scss";
 import { useAuth } from "../../contexts/authContext";
-// import { UserContext } from "../../App";
 
 const Auth = () => {
-  // const auth = getAuth();
-  // const user = useContext(UserContext);
   const { user, register, loginWithEmail } = useAuth();
   const navigate = useNavigate();
   const [registered, setRegistered] = useState(true);
@@ -61,8 +57,6 @@ const Auth = () => {
         register(form.registerEmail, form.registerPassword);
       }
     }
-
-    console.log(form);
   };
 
   useEffect(() => {
@@ -91,11 +85,7 @@ const Auth = () => {
           </div>
         </div>
         <div className="auth-form">
-          <GoogleIcon8
-            stroke="white"
-            fill="white"
-            strokeWidth="0"
-          />
+          <GoogleIcon8 stroke="white" fill="white" strokeWidth="0" />
           <p className="p-or">or</p>
           {registered ? (
             <div className="box-form login">

@@ -58,7 +58,7 @@
 
     .user-menu {
       position: absolute;
-      z-index: 1;
+      z-index: 2;
       right: 0;
       padding: 15px 25px;
 
@@ -212,8 +212,6 @@
         font-family: inherit;
       }
     }
-
-    
   }
 
   .hide {

@@ -4,14 +4,20 @@ import { useAuth } from "../../contexts/authContext";
 import "./me.scss";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
-import { getDownloadURL, list, ref } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 
-import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 export default function Me() {
-
   const { user } = useAuth();
   const [poster, setPosters] = useState([]);
+
+  const randomCardSize = () => {
+    let cardClass = ["card-small", "card-medium", "card-large"];
+    let rand = Math.floor(Math.random() * 2) + 0;
+
+    return cardClass[rand];
+  };
 
   function getUserPosts() {
     const postersRef = collection(db, "posters");
@@ -19,9 +25,9 @@ export default function Me() {
 
     getDocs(q)
       .then((doc) => {
-        let newPoster = []
+        let newPoster = [];
         doc.forEach((e) => {
-          let temp = {}
+          let temp = {};
 
           getDownloadURL(
             ref(storage, `poster-images/${e.data().uid}/${e.data().filename}`)
@@ -31,15 +37,11 @@ export default function Me() {
               temp.id = e.id;
               temp.data = e.data();
 
-              let _x = newPoster.push(temp)
+              let _x = newPoster.push(temp);
               setPosters(poster.concat(newPoster));
-              // setRefresh(!refresh)
-              
             })
             .catch(console.error);
-            // setRefresh(!refresh)
         });
-        // setRefresh(!refresh)
       })
       .catch(console.error);
   }
@@ -49,39 +51,38 @@ export default function Me() {
       getUserPosts();
     }
   }, [user]);
-    
-    return (
-      <div className="me-wrapper">
-          <Header />
-          {
-              user ?
-              <div>
-                  <Helmet>
-                      <title>Profil {user.displayName} - PromotBox</title>
-                  </Helmet>
-                  <div className="me-header">
-                      <img src={user.photoURL ? user.photoURL : user1} alt="" className="profile-picture" />
-                      <p className="user-name">{user.displayName}</p>
-                      <p className="user-email">{user.email}</p>
-                  </div>
-                  <div className="divider"></div>
-                  <div className="me-contents">
-                    {
-                        poster.length > 0 ?
-                        poster.map((e, i) => {
-                            return (
-                                <div className="me-card" key={i}>
-                                    <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
-                                </div>
-                            )
-                        }) : "Tidak ada poster"
-                    }
 
+  return (
+    <div className="me-wrapper">
+      <Header />
+      {user ? (
+        <div>
+          <Helmet>
+            <title>Profil {user.displayName} - PromotBox</title>
+          </Helmet>
+          <div className="me-header">
+            <img
+              src={user.photoURL ? user.photoURL : user1}
+              alt=""
+              className="profile-picture"
+            />
+            <p className="user-name">{user.displayName}</p>
+            <p className="user-email">{user.email}</p>
+          </div>
+          <div className="divider"></div>
+          <div className="me-contents">
+            {poster.length > 0
+              ? poster.map((e, i) => (
+                  <div className={`card ${randomCardSize()}`} key={i}>
+                    <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
                   </div>
-              </div>
-            : (
-                "Loading..."
-            )}
-      </div>
+                ))
+              : "Tidak ada poster"}
+          </div>
+        </div>
+      ) : (
+        "Loading..."
+      )}
+    </div>
   );
 }

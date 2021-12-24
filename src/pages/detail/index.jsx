@@ -1,16 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
 import "./detail.scss";
 import { ReactComponent as Arrowleft } from "../../assets/icon/arrowleft.svg";
 import { ReactComponent as Morehorizontal } from "../../assets/icon/morehorizontal.svg";
 import { user1 } from "../../assets";
 import { AlertBox, Header } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
-import { getDownloadURL, ref } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
-import Helmet from 'react-helmet';
+import Helmet from "react-helmet";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -43,12 +42,12 @@ const Detail = () => {
 
     if (docSnap.exists()) {
       let data = docSnap.data();
-      console.log(data);
 
       getDownloadURL(ref(storage, `poster-images/${data.uid}/${data.filename}`))
         .then((url) => {
+          data.fileName = data.filename;
           data.filename = url.toString();
-          console.log(data.timestamp.seconds);
+
           let date = new Date(data.timestamp.seconds * 1000);
           data.stringifiedDate = `${date.getDate()} ${
             month[date.getMonth()]
@@ -63,14 +62,23 @@ const Detail = () => {
 
   const deleteData = async (agreement) => {
     if (agreement) {
-      deleteDoc(doc(db, "posters", posterId)).then((e) => {
-        setAlert(
-          <AlertBox
-            isDanger={false}
-            message={"Poster berhasil dihapus"}
-            redirect={"/"}
-          />
-        );
+      const desertRef = ref(
+        storage,
+        `poster-images/${data.uid}/${data.fileName}`
+      );
+
+      // Delete the file
+      deleteObject(desertRef).then(function () {
+        deleteDoc(doc(db, "posters", posterId)).then((e) => {
+          setAlert(
+            <AlertBox
+              isDanger={false}
+              message={"Poster berhasil dihapus"}
+              redirect={"/"}
+              isShow={true}
+            />
+          );
+        });
       });
     } else {
       setAlert(
@@ -89,6 +97,7 @@ const Detail = () => {
               </div>
             </div>
           }
+          clickOutside={(e) => setAlert(e)}
         />
       );
     }
@@ -119,10 +128,6 @@ const Detail = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <div className="detail-container">
       <Header />
@@ -143,10 +148,7 @@ const Detail = () => {
           {showMore ? (
             <div className="more-detail" ref={node}>
               {data.filename ? (
-                <a
-                  href={data.filename}
-                  download
-                >
+                <a href={data.filename} download>
                   <p>Download poster</p>
                 </a>
               ) : (

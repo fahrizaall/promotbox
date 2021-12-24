@@ -1,11 +1,10 @@
-import { Header, Footer, PosterCard, AlertBox } from "../../components";
-import { poster1, poster2, poster3 } from "../../assets";
+import { Header, Footer, PosterCard } from "../../components";
 import "./home.scss";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import { ReactComponent as Arrowleft } from "../../assets/icon/arrowleft.svg";
+import React, { useEffect, useRef, useState } from "react";
 import "./home.scss";
-import { useAuth } from "../../contexts/authContext";
-import { getDownloadURL, list, ref } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 import { useParams } from "react-router-dom";
 import {
   collection,
@@ -20,13 +19,29 @@ import { Helmet } from "react-helmet";
 
 const Home = () => {
   let params = useParams();
-  let navigate = useNavigate()
-  const { user } = useAuth();
+  let navigate = useNavigate();
+  const tagScroll = useRef();
   const [posters, setPosters] = useState([]);
   const [loadMoreToken, setLoadMoreToken] = useState(false);
   const [isActiveTag, setIsActiveTag] = useState("all");
 
-  const tag = ["desain", "olahraga", "karyatulis", "koding", "Menggambar"];
+  const tag = [
+    "Seni",
+    "Seni Digital",
+    "Karya Tulis",
+    "Teknologi",
+    "Olahraga",
+    "E Sport",
+    "Sosial",
+    "Sains",
+    "Makanan",
+    "Ekonomi",
+    "Desain Teknis",
+    "Fotografi/Videografi",
+    "Bahasa",
+    "Film",
+    "Agama",
+  ];
 
   const randomCardSize = () => {
     let cardClass = ["card-small", "card-medium", "card-large"];
@@ -44,9 +59,12 @@ const Home = () => {
         collection(db, "posters"),
         where("tag", "==", params.tag)
       );
-    } else if(params.searchquery) {
-      // dataQuery = query(collection(db, "posters"), where("displayName", "array-contains", params.searchquery))
-      dataQuery = query(collection(db, "posters"), where("displayName", '>=', `${params.searchquery}`), where("displayName", '<=', `${params.searchquery}\uf8ff`));
+    } else if (params.searchquery) {
+      dataQuery = query(
+        collection(db, "posters"),
+        where("displayName", ">=", `${params.searchquery}`),
+        where("displayName", "<=", `${params.searchquery}\uf8ff`)
+      );
     } else {
       if (loadMore) {
         if (loadMoreToken) {
@@ -86,13 +104,13 @@ const Home = () => {
     await loadContents(false);
   }
 
-  // useEffect(() => {
-  //   fetchData()
-  // }, [params]);
+  const scroll = (scrollOffset) => {
+    tagScroll.current.scrollLeft += scrollOffset;
+  };
 
   useEffect(() => {
-    setPosters([])
-    fetchData()
+    setPosters([]);
+    fetchData();
     if (params.tag) {
       setIsActiveTag(params.tag);
     } else setIsActiveTag("all");
@@ -104,31 +122,40 @@ const Home = () => {
       <Helmet>
         <title>PromotBox</title>
       </Helmet>
-      {
-        params && params.searchquery && params.searchquery != '' ?
-         <div className="search-result-query tag">Hasil pencarian untuk 
+      {params && params.searchquery && params.searchquery != "" ? (
+        <div className="search-result-query tag">
+          Hasil pencarian untuk
           <span className="search-query">
             {params.searchquery}
-            <button onClick={()=>navigate("/")}>&times;</button>
+            <button onClick={() => navigate("/")}>&times;</button>
           </span>
         </div>
-         :
-         <div className="tag">
+      ) : (
+        <div className="tag">
           <div className="fix-item-container">
             <div>
               <Link
-                className={`tag-item ${isActiveTag === "all" ? "selected" : ""}`}
+                className={`tag-item ${
+                  isActiveTag === "all" ? "selected" : ""
+                }`}
                 to="/"
               >
                 All
               </Link>
             </div>
           </div>
-          <div className="tag-overflow">
+          <button className="scroll scroll-l" onClick={() => scroll(-250)}>
+            <span>
+              <Arrowleft stroke="grey" fill="grey" />
+            </span>
+          </button>
+          <div className="tag-overflow" ref={tagScroll}>
             {tag.map((tag, i) => (
               <div key={i}>
                 <Link
-                  className={`tag-item ${isActiveTag === tag ? "selected" : ""}`}
+                  className={`tag-item ${
+                    isActiveTag === tag ? "selected" : ""
+                  }`}
                   to={"/kategori/" + tag}
                 >
                   {tag}
@@ -136,19 +163,23 @@ const Home = () => {
               </div>
             ))}
           </div>
+          <button className="scroll scroll-r" onClick={() => scroll(250)}>
+            <span>
+              <Arrowleft stroke="grey" fill="grey" />
+            </span>
+          </button>
         </div>
-      
-      }
+      )}
       <main>
         <div className="poster-container">
           {posters && posters.length > 0
-            ? posters.map((poster) => (
-                <PosterCard
-                  additionalClass={randomCardSize()}
-                  imageUrl={poster.imageUrl}
-                  posterId={poster.doc_id}
-                  key={poster.doc_id}
-                />
+            ? posters.map((poster, i) => (
+                <div className={`card ${randomCardSize()}`} key={i}>
+                  <PosterCard
+                    imageUrl={poster.imageUrl}
+                    posterId={poster.doc_id}
+                  />
+                </div>
               ))
             : "Loading..."}
         </div>

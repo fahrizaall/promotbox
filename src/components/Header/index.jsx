@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { user1 } from "../../assets";
 import { ReactComponent as SearchIco } from "../../assets/icon/search.svg";
 import { ReactComponent as GoogleIco } from "../../assets/icon/icons8-google.svg";
-import { app, db, storage } from "../../firebase-config";
 import { useAuth } from "../../contexts/authContext";
-import { where, collection, query, getDocs } from "firebase/firestore";
-import { getDownloadURL } from "firebase/storage";
 import "./header.scss";
 
 const Header = () => {
@@ -41,10 +38,10 @@ const Header = () => {
   };
 
   const handleSearch = () => {
-    if(search && search != '') {
-      navigate("/cari/"+search)
+    if (search && search != "") {
+      navigate("/cari/" + search);
     }
-  }
+  };
 
   // get click outside
   useEffect(() => {
@@ -92,7 +89,6 @@ const Header = () => {
                 </div>
                 <Link to="/me">Poster Saya</Link>
                 <Link to="/create-post">Upload Poster</Link>
-                {/* <hr className="solid" /> */}
                 <p className="menu-logout" onClick={handleLogout}>
                   Logout
                 </p>
@@ -115,12 +111,13 @@ const Header = () => {
             placeholder="Search..."
             onChange={handleChange}
           />
-          <button onClick={handleSearch} className="search-btn">Cari</button>
+          <button onClick={handleSearch} className="search-btn">
+            Cari
+          </button>
           <button className="cancel-btn" onClick={() => setShowSearch(false)}>
             Batal
           </button>
         </form>
-        
       </div>
     </header>
   );
