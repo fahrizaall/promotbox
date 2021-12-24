@@ -18,7 +18,9 @@ function App() {
             <Route path="/poster/:id" element={<Detail />} />
             <Route path="/me" element={<Me />} />
             <Route path="/login" element={<Auth />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />}>
+              <Route path="kategori/:tag" element={<Home />} />
+            </Route>
             <Route path="*" element={<ErrorNotFound />} />
           </Routes>
         </BrowserRouter>

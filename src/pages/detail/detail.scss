@@ -9,6 +9,29 @@ a {
 }
 
 .detail-container {
+  p {
+    margin: 0;
+  }
+  .screen {
+    .box {
+      .hapus-agreement {
+        .btn {
+          display: flex;
+          justify-content: right;
+
+          button {
+            margin: 35px 10px 0 10px;
+            background-color: #f3f3f3;
+          }
+
+          .hapus {
+            color: white;
+            background-color: #f30000;
+          }
+        }
+      }
+    }
+  }
   .navigation {
     display: flex;
     align-items: center;
@@ -74,7 +97,7 @@ a {
       .account {
         display: flex;
 
-        .author-info{
+        .author-info {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
@@ -92,7 +115,6 @@ a {
         }
 
         p {
-          
           font-size: 18px;
 
           font-weight: 600;

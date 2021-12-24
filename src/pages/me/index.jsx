@@ -1,10 +1,11 @@
-import { user1 } from '../../assets'
-import { Header, PosterCard } from '../../components'
-import { useAuth } from '../../contexts/authContext'
-import './me.scss'
-import { query, collection, where, getDocs } from 'firebase/firestore'
-import { db, storage } from '../../firebase-config'
+import { user1 } from "../../assets";
+import { Header, PosterCard } from "../../components";
+import { useAuth } from "../../contexts/authContext";
+import "./me.scss";
+import { query, collection, where, getDocs } from "firebase/firestore";
+import { db, storage } from "../../firebase-config";
 import { getDownloadURL, list, ref } from "firebase/storage";
+
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 export default function Me() {
@@ -12,37 +13,44 @@ export default function Me() {
     const { user } = useAuth()
     const [ poster, setPosters ] = useState([]);
 
-    function getUserPosts() {
-        const postersRef = collection(db, "posters")
-        const q = query(postersRef, where("uid", "==", user.uid))
+export default function Me() {
+  const { user } = useAuth();
+  const [poster, setPosters] = useState([]);
 
-        getDocs(q)
-        .then((doc) => {
-            doc.forEach((e) => {
-                
-                let temp = {}
+  function getUserPosts() {
+    const postersRef = collection(db, "posters");
+    const q = query(postersRef, where("uid", "==", user.uid));
 
-                getDownloadURL(ref(storage, `poster-images/${e.data().uid}/${e.data().filename}`))
-                .then((el) => {
-                    temp.imageUrl = el.toString()
-                    temp.id = e.id
-                    temp.data = e.data()
+    getDocs(q)
+      .then((doc) => {
+        doc.forEach((e) => {
+          let temp = {};
 
-                    setPosters(poster.concat([temp]))
-                })
-                .catch(console.error)
+          getDownloadURL(
+            ref(storage, `poster-images/${e.data().uid}/${e.data().filename}`)
+          )
+            .then((el) => {
+              temp.imageUrl = el.toString();
+              temp.id = e.id;
+              temp.data = e.data();
 
-                
+              setPosters(poster.concat([temp]));
             })
-        })
-        .catch(console.error)
-    }
+            .catch(console.error);
+        });
+      })
+      .catch(console.error);
+  }
 
-    useEffect(() => {
-        if(user != null) {
-            getUserPosts()
-        }
-    }, [user])
+  useEffect(() => {
+    if (user != null) {
+      getUserPosts();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log(poster);
+  }, [poster]);
 
     useEffect(() => {
         console.log(poster)
@@ -76,10 +84,12 @@ export default function Me() {
                                 )
                             }) : "Tidak ada poster"
                         }
-                    </div>
-                </div>
-                : "Loading..."
-            }
+
+          </div>
         </div>
-    )
+      ) : (
+        "Loading..."
+      )}
+    </div>
+  );
 }
