@@ -1,6 +1,7 @@
 import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { AlertBox, Header } from "../../components";
 import { useAuth } from "../../contexts/authContext";
@@ -85,6 +86,9 @@ const CreatePost = () => {
   return (
     <div className="create-post-container">
       <Header />
+      <Helmet>
+        <title>Create Post - PromotBox</title>
+      </Helmet>
       <h1>Create Post</h1>
       {alert}
       <div className="form-box">

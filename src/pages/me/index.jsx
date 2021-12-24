@@ -5,7 +5,13 @@ import "./me.scss";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, list, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
+export default function Me() {
+
+    const { user } = useAuth()
+    const [ poster, setPosters ] = useState([]);
 
 export default function Me() {
   const { user } = useAuth();
@@ -46,31 +52,39 @@ export default function Me() {
     console.log(poster);
   }, [poster]);
 
-  return (
-    <div className="me-wrapper">
-      <Header />
-      {user ? (
-        <div>
-          <div className="me-header">
-            <img
-              src={user.photoURL ? user.photoURL : user1}
-              alt=""
-              className="profile-picture"
-            />
-            <p className="user-name">{user.displayName}</p>
-            <p className="user-email">{user.email}</p>
-          </div>
-          <div className="divider"></div>
-          <div className="me-contents">
-            {poster.length > 0
-              ? poster.map((e, i) => {
-                  return (
-                    <div className="me-card" key={e.id}>
-                      <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
+    useEffect(() => {
+        console.log(poster)
+    }, [poster])
+    
+    return (
+        <div className="me-wrapper">
+            <Header />
+            {
+                user ?
+                <div>
+                    <Helmet>
+                        <title>Profil {user.displayName} - PromotBox</title>
+                    </Helmet>
+                    <div className="me-header">
+                        <img src={user.photoURL ? user.photoURL : user1} alt="" className="profile-picture" />
+                        <p className="user-name">{user.displayName}</p>
+                        <p className="user-email">{user.email}</p>
                     </div>
-                  );
-                })
-              : "Tidak ada poster"}
+                    <div className="divider"></div>
+                    <div className="me-contents">
+                        
+                        
+                        {
+                            poster.length > 0 ?
+                            poster.map((e, i) => {
+                                return (
+                                    <div className="me-card" key={e.id}>
+                                        <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
+                                    </div>
+                                )
+                            }) : "Tidak ada poster"
+                        }
+
           </div>
         </div>
       ) : (

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom"
 import { ReactComponent as Arrowleft } from "../../assets/icon/arrowleft.svg";
 import './404.scss'
@@ -8,6 +9,9 @@ export default function ErrorNotFound() {
 
     return (
         <div>
+            <Helmet>
+                <title>Halaman tidak ditemukan - PromotBox</title>
+            </Helmet>
             <div className="err-nav-wrapper">
                 <button className="bg-transparent err-back-btn" onClick={_e=>navigate(-1)}>
                     <Arrowleft stroke="grey" fill="grey" width="13" height="13" /> 

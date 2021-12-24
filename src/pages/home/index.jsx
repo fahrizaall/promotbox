@@ -17,6 +17,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   let params = useParams();
@@ -100,6 +101,9 @@ const Home = () => {
   return (
     <div className="home-container">
       <Header />
+      <Helmet>
+        <title>PromotBox</title>
+      </Helmet>
       <div className="tag">
         <div className="fix-item-container">
           <p>
