@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { user1 } from "../../assets";
 import { ReactComponent as SearchIco } from "../../assets/icon/search.svg";
 import { ReactComponent as GoogleIco } from "../../assets/icon/icons8-google.svg";
+import { app, db, storage } from "../../firebase-config";
 import { useAuth } from "../../contexts/authContext";
 import "./header.scss";
+import { getAuth } from "firebase/auth";
 
 const Header = () => {
   const { user, logout, loginWithGoogle } = useAuth();
@@ -37,6 +39,8 @@ const Header = () => {
     logout().then(navigate("/"));
   };
 
+  const handleSearch = async () => {};
+
   // get click outside
   useEffect(() => {
     if (showUserMenu) {
@@ -51,16 +55,20 @@ const Header = () => {
 
   return (
     <header className="header">
-      <Link className="header-title" to="/">
+      <a className="header-title" href="/">
         <img src="/logo231.png" /> PromotBox
-      </Link>
+      </a>
       <div className="header-icon">
         <span className="search-icon" onClick={() => setShowSearch(true)}>
           <SearchIco stroke="grey" fill="grey" />
         </span>
 
         <div className="user" onClick={() => setShowUserMenu(true)}>
-          <img src={user && user.photoURL ? user.photoURL : user1} alt="" className="user-icon profile-picture" />
+          <img
+            src={user && user.photoURL ? user.photoURL : user1}
+            alt=""
+            className="user-icon profile-picture"
+          />
           <div
             className={`user-menu ${showUserMenu ? "show" : "hide"}`}
             ref={node}
@@ -68,13 +76,21 @@ const Header = () => {
             {user !== null ? (
               <div className="menu-opt">
                 <div className="menu-user-info">
-                  <img src={user && user.photoURL ? user.photoURL : user1} alt="user picture" className="menu-user-info-pp profile-picture" />
-                  <span onClick={()=>navigate("/me")}>{user.displayName}</span>
+                  <img
+                    src={user && user.photoURL ? user.photoURL : user1}
+                    alt="user picture"
+                    className="menu-user-info-pp profile-picture"
+                  />
+                  <span onClick={() => navigate("/me")}>
+                    {user.displayName}
+                  </span>
                 </div>
                 <Link to="/me">Poster Saya</Link>
                 <Link to="/create-post">Upload Poster</Link>
                 {/* <hr className="solid" /> */}
-                <p className="menu-logout" onClick={handleLogout}>Logout</p>
+                <p className="menu-logout" onClick={handleLogout}>
+                  Logout
+                </p>
               </div>
             ) : (
               <div onClick={handleLogin} className="menu-opt-login">

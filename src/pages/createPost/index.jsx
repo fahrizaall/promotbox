@@ -2,7 +2,7 @@ import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../../components";
+import { AlertBox, Header } from "../../components";
 import { useAuth } from "../../contexts/authContext";
 import { db, storage } from "../../firebase-config";
 import "./createpost.scss";
@@ -12,6 +12,7 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const date = new Date();
   const { user } = useAuth();
+  const [alert, setAlert] = useState();
   const [images, setImages] = useState();
   const [imageURLs, setImageURLs] = useState();
 
@@ -57,9 +58,15 @@ const CreatePost = () => {
       let newPosterRef = doc(collection(db, "posters"));
 
       try {
-        setDoc(newPosterRef, finalForm);
-        uploadBytes(storageRef, images);
-        navigate("/");
+        await setDoc(newPosterRef, finalForm);
+        await uploadBytes(storageRef, images);
+        setAlert(
+          <AlertBox
+            message={"Poster berhasil dibuat!"}
+            redirect={"/"}
+            isDanger={false}
+          />
+        );
       } catch (error) {
         console.log(error);
       }
@@ -79,6 +86,7 @@ const CreatePost = () => {
     <div className="create-post-container">
       <Header />
       <h1>Create Post</h1>
+      {alert}
       <div className="form-box">
         <div className="img-wrapper">
           <label htmlFor="image">

@@ -3,7 +3,6 @@ $card-medium: 29;
 $card-large: 33;
 
 .home-container {
-
   .tag {
     display: flex;
 
@@ -22,13 +21,13 @@ $card-large: 33;
     }
 
     .selected {
-      // #A2D2FF
       border: 1px solid #a2d2ff;
       color: white;
       background-color: #a2d2ff;
     }
 
     .fix-item-container {
+      position: relative;
       background-color: white;
       z-index: 1;
     }
