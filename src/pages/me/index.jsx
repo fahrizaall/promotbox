@@ -10,10 +10,6 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 export default function Me() {
 
-    const { user } = useAuth()
-    const [ poster, setPosters ] = useState([]);
-
-export default function Me() {
   const { user } = useAuth();
   const [poster, setPosters] = useState([]);
 
@@ -23,8 +19,9 @@ export default function Me() {
 
     getDocs(q)
       .then((doc) => {
+        let newPoster = poster
         doc.forEach((e) => {
-          let temp = {};
+          let temp = {}
 
           getDownloadURL(
             ref(storage, `poster-images/${e.data().uid}/${e.data().filename}`)
@@ -34,7 +31,9 @@ export default function Me() {
               temp.id = e.id;
               temp.data = e.data();
 
-              setPosters(poster.concat([temp]));
+              let x = newPoster.push(temp)
+
+              setPosters(newPoster);
             })
             .catch(console.error);
         });
@@ -87,7 +86,7 @@ export default function Me() {
 
           </div>
         </div>
-      ) : (
+       : (
         "Loading..."
       )}
     </div>

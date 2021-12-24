@@ -3,6 +3,32 @@ $card-medium: 29;
 $card-large: 33;
 
 .home-container {
+  .search-result-query {
+    text-align: left;
+    display: flex;
+    align-items: center;
+
+    .search-query {
+      background-color: #a2d2ff;
+      margin: 0 5px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 10pt;
+
+      button {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        color: red;
+      }
+    }
+  }
+
   .tag {
     display: flex;
 
@@ -29,6 +55,7 @@ $card-large: 33;
     .fix-item-container {
       position: relative;
       background-color: white;
+      padding-top: 6px;
       z-index: 1;
     }
 
@@ -36,6 +63,11 @@ $card-large: 33;
       position: relative;
       display: flex;
       flex-wrap: nowrap;
+      align-items: center;
+      height:fit-content;
+
+      padding-top: 6px;
+      padding-bottom: 6px;
 
       overflow-x: scroll;
 
