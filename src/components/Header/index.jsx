@@ -5,8 +5,9 @@ import { ReactComponent as SearchIco } from "../../assets/icon/search.svg";
 import { ReactComponent as GoogleIco } from "../../assets/icon/icons8-google.svg";
 import { app, db, storage } from "../../firebase-config";
 import { useAuth } from "../../contexts/authContext";
+import { where, collection, query, getDocs } from "firebase/firestore";
+import { getDownloadURL } from "firebase/storage";
 import "./header.scss";
-import { getAuth } from "firebase/auth";
 
 const Header = () => {
   const { user, logout, loginWithGoogle } = useAuth();
@@ -39,7 +40,11 @@ const Header = () => {
     logout().then(navigate("/"));
   };
 
-  const handleSearch = async () => {};
+  const handleSearch = () => {
+    if(search && search != '') {
+      navigate("/cari/"+search)
+    }
+  }
 
   // get click outside
   useEffect(() => {
@@ -95,7 +100,7 @@ const Header = () => {
             ) : (
               <div onClick={handleLogin} className="menu-opt-login">
                 <GoogleIco stroke="lightgray" fill="lightgray" />
-                <p>Login with google</p>
+                <p>Login with Google</p>
               </div>
             )}
           </div>
@@ -110,10 +115,12 @@ const Header = () => {
             placeholder="Search..."
             onChange={handleChange}
           />
+          <button onClick={handleSearch} className="search-btn">Cari</button>
+          <button className="cancel-btn" onClick={() => setShowSearch(false)}>
+            Batal
+          </button>
         </form>
-        <p className="cancle-btn" onClick={() => setShowSearch(false)}>
-          Cancel
-        </p>
+        
       </div>
     </header>
   );

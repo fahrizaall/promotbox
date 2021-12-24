@@ -1,8 +1,7 @@
 import { Header, Footer, PosterCard, AlertBox } from "../../components";
 import { poster1, poster2, poster3 } from "../../assets";
 import "./home.scss";
-import { Link } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroller";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import "./home.scss";
 import { useAuth } from "../../contexts/authContext";
@@ -21,6 +20,7 @@ import { Helmet } from "react-helmet";
 
 const Home = () => {
   let params = useParams();
+  let navigate = useNavigate()
   const { user } = useAuth();
   const [posters, setPosters] = useState([]);
   const [loadMoreToken, setLoadMoreToken] = useState(false);
@@ -37,14 +37,16 @@ const Home = () => {
 
   const loadContents = async (loadMore) => {
     let dataQuery;
-    let data = posters;
+    let data = [];
 
     if (params.tag) {
-      console.log();
       dataQuery = query(
         collection(db, "posters"),
         where("tag", "==", params.tag)
       );
+    } else if(params.searchquery) {
+      // dataQuery = query(collection(db, "posters"), where("displayName", "array-contains", params.searchquery))
+      dataQuery = query(collection(db, "posters"), where("displayName", '>=', `${params.searchquery}`), where("displayName", '<=', `${params.searchquery}\uf8ff`));
     } else {
       if (loadMore) {
         if (loadMoreToken) {
@@ -80,19 +82,17 @@ const Home = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(params.tag);
-    async function fetchData() {
-      await loadContents(false);
-    }
-    fetchData();
-  }, []);
+  async function fetchData() {
+    await loadContents(false);
+  }
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [params]);
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
-
-  useEffect(() => {
+    setPosters([])
+    fetchData()
     if (params.tag) {
       setIsActiveTag(params.tag);
     } else setIsActiveTag("all");
@@ -104,30 +104,41 @@ const Home = () => {
       <Helmet>
         <title>PromotBox</title>
       </Helmet>
-      <div className="tag">
-        <div className="fix-item-container">
-          <p>
-            <a
-              className={`tag-item ${isActiveTag === "all" ? "selected" : ""}`}
-              href=""
-            >
-              All
-            </a>
-          </p>
+      {
+        params && params.searchquery && params.searchquery != '' ?
+         <div className="search-result-query tag">Hasil pencarian untuk 
+          <span className="search-query">
+            {params.searchquery}
+            <button onClick={()=>navigate("/")}>&times;</button>
+          </span>
         </div>
-        <div className="tag-overflow">
-          {tag.map((tag) => (
-            <p>
-              <a
-                className={`tag-item ${isActiveTag === tag ? "selected" : ""}`}
-                href={"/kategori/" + tag}
+         :
+         <div className="tag">
+          <div className="fix-item-container">
+            <div>
+              <Link
+                className={`tag-item ${isActiveTag === "all" ? "selected" : ""}`}
+                to="/"
               >
-                {tag}
-              </a>
-            </p>
-          ))}
+                All
+              </Link>
+            </div>
+          </div>
+          <div className="tag-overflow">
+            {tag.map((tag, i) => (
+              <div key={i}>
+                <Link
+                  className={`tag-item ${isActiveTag === tag ? "selected" : ""}`}
+                  to={"/kategori/" + tag}
+                >
+                  {tag}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      
+      }
       <main>
         <div className="poster-container">
           {posters && posters.length > 0
@@ -139,7 +150,7 @@ const Home = () => {
                   key={poster.doc_id}
                 />
               ))
-            : ""}
+            : "Loading..."}
         </div>
       </main>
       <Footer />

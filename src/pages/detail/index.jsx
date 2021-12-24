@@ -81,10 +81,10 @@ const Detail = () => {
               <p>Apa anda yakin ingin menghapus?</p>
               <div className="btn">
                 <button className="batal" onClick={() => setAlert("")}>
-                  batal
+                  Batal
                 </button>
                 <button className="hapus" onClick={() => deleteData(true)}>
-                  hapus
+                  Hapus
                 </button>
               </div>
             </div>
@@ -145,7 +145,7 @@ const Detail = () => {
               {data.filename ? (
                 <a
                   href={data.filename}
-                  download={`promotbox_poster${data.uid}.jpg`}
+                  download
                 >
                   <p>Download poster</p>
                 </a>

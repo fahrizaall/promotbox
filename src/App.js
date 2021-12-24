@@ -19,8 +19,10 @@ function App() {
             <Route path="/me" element={<Me />} />
             <Route path="/login" element={<Auth />} />
             <Route path="/" element={<Home />}>
-              <Route path="kategori/:tag" element={<Home />} />
+              
             </Route>
+            <Route path="kategori/:tag" element={<Home />} />
+            <Route path="cari/:searchquery" element={<Home />} />
             <Route path="*" element={<ErrorNotFound />} />
           </Routes>
         </BrowserRouter>
