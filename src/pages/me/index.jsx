@@ -19,7 +19,7 @@ export default function Me() {
 
     getDocs(q)
       .then((doc) => {
-        let newPoster = poster
+        let newPoster = []
         doc.forEach((e) => {
           let temp = {}
 
@@ -31,64 +31,57 @@ export default function Me() {
               temp.id = e.id;
               temp.data = e.data();
 
-              let x = newPoster.push(temp)
-
-              setPosters(newPoster);
+              let _x = newPoster.push(temp)
+              setPosters(poster.concat(newPoster));
+              // setRefresh(!refresh)
+              
             })
             .catch(console.error);
+            // setRefresh(!refresh)
         });
+        // setRefresh(!refresh)
       })
       .catch(console.error);
   }
 
   useEffect(() => {
-    if (user != null) {
+    if (user) {
       getUserPosts();
     }
   }, [user]);
-
-  useEffect(() => {
-    console.log(poster);
-  }, [poster]);
-
-    useEffect(() => {
-        console.log(poster)
-    }, [poster])
     
     return (
-        <div className="me-wrapper">
-            <Header />
-            {
-                user ?
-                <div>
-                    <Helmet>
-                        <title>Profil {user.displayName} - PromotBox</title>
-                    </Helmet>
-                    <div className="me-header">
-                        <img src={user.photoURL ? user.photoURL : user1} alt="" className="profile-picture" />
-                        <p className="user-name">{user.displayName}</p>
-                        <p className="user-email">{user.email}</p>
-                    </div>
-                    <div className="divider"></div>
-                    <div className="me-contents">
-                        
-                        
-                        {
-                            poster.length > 0 ?
-                            poster.map((e, i) => {
-                                return (
-                                    <div className="me-card" key={e.id}>
-                                        <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
-                                    </div>
-                                )
-                            }) : "Tidak ada poster"
-                        }
+      <div className="me-wrapper">
+          <Header />
+          {
+              user ?
+              <div>
+                  <Helmet>
+                      <title>Profil {user.displayName} - PromotBox</title>
+                  </Helmet>
+                  <div className="me-header">
+                      <img src={user.photoURL ? user.photoURL : user1} alt="" className="profile-picture" />
+                      <p className="user-name">{user.displayName}</p>
+                      <p className="user-email">{user.email}</p>
+                  </div>
+                  <div className="divider"></div>
+                  <div className="me-contents">
+                    {
+                        poster.length > 0 ?
+                        poster.map((e, i) => {
+                            return (
+                                <div className="me-card" key={i}>
+                                    <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
+                                </div>
+                            )
+                        }) : "Tidak ada poster"
+                    }
 
-          </div>
-        </div>
-       : (
-        "Loading..."
-      )}
-    </div>
+                  </div>
+              </div>
+            : (
+                "Loading..."
+            )}
+      </div>
   );
 }
