@@ -38,8 +38,6 @@ const CreatePost = () => {
     filename: "",
     tag: "",
     caption: "",
-    owner: "",
-    ownerId: "",
     timestamp: serverTimestamp(),
   });
 
@@ -140,6 +138,8 @@ const CreatePost = () => {
               ))}
             </select>
           </div>
+          <label htmlFor="title">Judul</label>
+          <input type="text" name="title" id="title" onChange={handleChange} />
           <label htmlFor="caption">Caption</label>
           <textarea
             name="caption"

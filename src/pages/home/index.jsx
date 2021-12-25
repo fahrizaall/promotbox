@@ -64,7 +64,7 @@ const Home = () => {
       dataQuery = query(
         collection(db, "posters"),
         where("displayName", ">=", `${params.searchquery}`),
-        where("displayName", "<=", `${params.searchquery}\uf8ff`)
+        where("displayName", "<=", `${params.searchquery}\uf8ff`),
       );
     } else {
       if (loadMore) {

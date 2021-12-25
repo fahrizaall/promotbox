@@ -50,6 +50,7 @@ const AuthProvider = (child) => {
   const loginWithGoogle = async () => {
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
+      window.location.href = "/verify-login"
     } catch (error) {
       console.log(error);
     }
