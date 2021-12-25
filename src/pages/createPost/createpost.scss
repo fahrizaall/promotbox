@@ -4,12 +4,14 @@
   .form-box {
     width: 90vw;
     margin: 20px auto;
+    border-radius: 4px;
 
     .img-wrapper {
       position: relative;
       min-height: 450px;
       margin: 10px 0;
       border-radius: 10px;
+      border: none;
       // border: 1px solid lightgray;
       box-shadow: 1px 1px 5px lightgray;
 
@@ -18,9 +20,12 @@
         height: 450px;
         cursor: pointer;
         color: lightgray;
+        font-family: inherit;
+        border: none;
       }
       label::before {
         content: "";
+        border: none;
         position: absolute;
         top: 0;
         height: 0;
@@ -50,6 +55,7 @@
 
       input {
         display: none;
+        border: none;
       }
     }
     .img-wrapper:hover {
@@ -66,6 +72,13 @@
 
       font-size: 14px;
 
+      select {
+        padding: 5px;
+        // border-radius: 8px;
+        border: 1px solid lightgray;
+        outline: none;
+      }
+
       label {
         margin: 0 0 5px 0;
       }
@@ -76,6 +89,9 @@
         height: 400px;
         padding: 5px;
         margin: 0 0 10px 0;
+        padding: 8px;
+        // border-radius: 8px;
+        border: 1px solid lightgray;
       }
 
       /* width */

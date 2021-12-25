@@ -19,7 +19,7 @@
 
     text-decoration: none;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 24px;
     color: #1b9ab4;
 
@@ -49,6 +49,7 @@
 
   .user {
     position: relative;
+    width: 30px;
     height: 30px;
     margin-left: 10px;
 
@@ -89,6 +90,7 @@
           flex-direction: row;
           align-items: center;
           justify-content: flex-start;
+          border-radius: 8px;
           gap: 8px;
 
           .menu-user-info-pp {
@@ -99,6 +101,13 @@
             font-weight: 600;
             cursor: pointer;
           }
+        }
+
+        .menu-user-info:hover {
+          cursor: pointer;
+          background-color: rgba(211, 211, 211, 0.5);
+          margin: -5px -10px;
+          padding: 5px 10px;
         }
 
         a,

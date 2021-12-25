@@ -1,39 +1,17 @@
-[debug] [2021-12-25T04:10:13.962Z] ----------------------------------------------------------------------
-[debug] [2021-12-25T04:10:13.963Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2021-12-25T04:10:13.964Z] CLI Version:   10.0.1
-[debug] [2021-12-25T04:10:13.964Z] Platform:      win32
-[debug] [2021-12-25T04:10:13.964Z] Node Version:  v14.17.0
-[debug] [2021-12-25T04:10:13.965Z] Time:          Sat Dec 25 2021 11:10:13 GMT+0700 (Indochina Time)
-[debug] [2021-12-25T04:10:13.965Z] ----------------------------------------------------------------------
+[debug] [2021-12-25T05:28:27.470Z] ----------------------------------------------------------------------
+[debug] [2021-12-25T05:28:27.472Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2021-12-25T05:28:27.472Z] CLI Version:   10.0.1
+[debug] [2021-12-25T05:28:27.472Z] Platform:      win32
+[debug] [2021-12-25T05:28:27.472Z] Node Version:  v14.17.0
+[debug] [2021-12-25T05:28:27.473Z] Time:          Sat Dec 25 2021 12:28:27 GMT+0700 (Indochina Time)
+[debug] [2021-12-25T05:28:27.473Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2021-12-25T04:10:14.021Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2021-12-25T04:10:14.021Z] > authorizing via signed-in user (promotbox@gmail.com)
-[debug] [2021-12-25T04:10:14.021Z] [iam] checking project promotbox-54e94 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2021-12-25T04:10:14.024Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2021-12-25T04:10:14.024Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2021-12-25T05:28:27.528Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-12-25T05:28:27.529Z] > authorizing via signed-in user (promotbox@gmail.com)
+[debug] [2021-12-25T05:28:27.529Z] [iam] checking project promotbox-54e94 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-12-25T05:28:27.531Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-12-25T05:28:27.531Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2021-12-25T04:10:35.089Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
-
-For CI servers and headless environments, generate a new token with firebase login:ci
-[debug] [2021-12-25T04:10:35.090Z] > refreshing access token with scopes: []
-[debug] [2021-12-25T04:10:35.090Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2021-12-25T04:10:56.129Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
-
-For CI servers and headless environments, generate a new token with firebase login:ci
-[debug] [2021-12-25T04:10:56.131Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
-
-For CI servers and headless environments, generate a new token with firebase login:ci
-    at invalidCredentialError (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:141:12)
-    at refreshTokens (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:448:15)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)
-    at async Client.getAccessToken (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:146:23)
-    at async Client.addAuthHeader (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:137:21)
-    at async Client.request (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:93:34)
-    at async Object.getFirebaseProject (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:290:21)
-    at async Object.getDefaultHostingSite (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\getDefaultHostingSite.js:8:21)
-    at async requireHostingSite (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\requireHostingSite.js:9:18)
-    at async Object.fn (C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js:73:9)
-    at async C:\Users\Faisal\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:188:17
-[error] 
-[error] Error: Failed to get Firebase project promotbox-54e94. Please make sure the project exists and your account has permission to access it.
+[debug] [2021-12-25T05:28:27.686Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Sat, 25 Dec 2021 05:28:27 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-25T05:28:27.696Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/promotbox-54e94:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
