@@ -20,7 +20,8 @@ const CreatePost = () => {
     "Makanan",
     "Ekonomi",
     "Desain Teknis",
-    "Fotografi/Videografi",
+    "Fotografi",
+    "Videografi",
     "Bahasa",
     "Film",
     "Agama",
@@ -31,6 +32,7 @@ const CreatePost = () => {
   const [alert, setAlert] = useState();
   const [images, setImages] = useState();
   const [imageURLs, setImageURLs] = useState();
+  const [isUploading, setIsUploading] = useState(false);
 
   const [form, setForm] = useState({
     filename: "",
@@ -74,6 +76,7 @@ const CreatePost = () => {
       let newPosterRef = doc(collection(db, "posters"));
 
       try {
+        setIsUploading(true);
         await setDoc(newPosterRef, finalForm);
         await uploadBytes(storageRef, images);
         setAlert(
@@ -85,6 +88,8 @@ const CreatePost = () => {
         );
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsUploading(false);
       }
     } else {
       console.log("fill all the field");
@@ -145,7 +150,11 @@ const CreatePost = () => {
             required={true}
           ></textarea>
 
-          <button onClick={handleSubmit}>Upload Poster</button>
+          {
+            isUploading === false ? 
+            <button onClick={handleSubmit}>Upload Poster</button>
+            : <button>Sedang mengunggah poster...</button>
+          }
         </div>
       </div>
     </div>
