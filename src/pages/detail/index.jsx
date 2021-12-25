@@ -138,7 +138,7 @@ const Detail = () => {
 
       {alert}
       <div className="navigation">
-        <Arrowleft stroke="grey" fill="grey" onClick={() => navigate("/")} />
+        <Arrowleft stroke="grey" fill="grey" onClick={() => navigate(-1)} />
         <div className="more">
           <Morehorizontal
             stroke="grey"
@@ -154,7 +154,7 @@ const Detail = () => {
               ) : (
                 false
               )}
-              {user.uid === data.uid ? (
+              {user && user.uid === data.uid ? (
                 <p onClick={() => deleteData(false)}>Hapus</p>
               ) : (
                 false
