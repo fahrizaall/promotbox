@@ -57,9 +57,9 @@ const Header = () => {
 
   return (
     <header className="header">
-      <a className="header-title" href="/">
+      <Link className="header-title" to="/">
         <img src="/logo231.png" /> PromotBox
-      </a>
+      </Link>
       <div className="header-icon">
         <span className="search-icon" onClick={() => setShowSearch(true)}>
           <SearchIco stroke="grey" fill="grey" />
@@ -77,7 +77,7 @@ const Header = () => {
           >
             {user !== null ? (
               <div className="menu-opt">
-                <div className="menu-user-info">
+                <div className="menu-user-info" onClick={() => navigate("/me")}>
                   <img
                     src={user && user.photoURL ? user.photoURL : user1}
                     alt="user picture"
@@ -112,7 +112,7 @@ const Header = () => {
             onChange={handleChange}
           />
           <button onClick={handleSearch} className="search-btn">
-            Cari
+            <SearchIco stroke="white" fill="white" width={20} height={20} />
           </button>
           <button className="cancel-btn" onClick={() => setShowSearch(false)}>
             Batal

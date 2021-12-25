@@ -148,6 +148,7 @@ const CreatePost = () => {
             rows="10"
             onChange={handleChange}
             required={true}
+            autoCorrect="false"
           ></textarea>
 
           {
