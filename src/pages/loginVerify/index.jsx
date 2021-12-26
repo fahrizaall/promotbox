@@ -39,6 +39,9 @@ export default function LoginVerify() {
                     providerData: u.providerData,
                     uid: u.uid,
                     photoURL: u.photoURL,
+                    isSuspended: false,
+                    isBanned: false,
+                    role: 1
                 })
                 .then(() => {
                     navigate("/")
