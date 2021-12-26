@@ -49,7 +49,8 @@ const Detail = () => {
         e.docs.map((el) => {
           data = {
             ...data,
-            displayName: el.data().displayName
+            displayName: el.data().displayName,
+            photoURL: el.data().photoURL
           }
         })
       })
@@ -144,7 +145,7 @@ const Detail = () => {
       <Header />
 
       <Helmet>
-        <title>Detail Poster - PromotBox</title>
+        <title>{data && data.title ? data.title : "Detail Poster"} - PromotBox</title>
       </Helmet>
 
       {alert}
@@ -185,7 +186,7 @@ const Detail = () => {
         <div className="info">
           <div className="account">
             <div className="p-pic">
-              <img src={user1} alt="" />
+              <img src={data && data.photoURL ? data.photoURL : user1} alt="" />
             </div>
             <div className="author-info">
               <p>{data.displayName}</p>
