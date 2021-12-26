@@ -5,7 +5,7 @@ import { ReactComponent as Morehorizontal } from "../../assets/icon/morehorizont
 import { user1 } from "../../assets";
 import { AlertBox, Header } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, onSnapshot, collection, query, where } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
@@ -42,6 +42,17 @@ const Detail = () => {
 
     if (docSnap.exists()) {
       let data = docSnap.data();
+
+      const collectionRef = collection(db, "users")
+        const q = query(collectionRef, where("uid", "==", data.uid))
+      onSnapshot(q, (e) => {
+        e.docs.map((el) => {
+          data = {
+            ...data,
+            displayName: el.data().displayName
+          }
+        })
+      })
 
       getDownloadURL(ref(storage, `poster-images/${data.uid}/${data.filename}`))
         .then((url) => {

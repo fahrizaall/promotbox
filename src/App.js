@@ -7,6 +7,7 @@ import Auth from "./pages/auth";
 import CreatePost from "./pages/createPost";
 import { AuthProvider } from "./contexts/authContext";
 import Me from "./pages/me";
+import LoginVerify from "./pages/loginVerify";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             </Route>
             <Route path="kategori/:tag" element={<Home />} />
             <Route path="cari/:searchquery" element={<Home />} />
+            <Route path="/verify-login" element={<LoginVerify />} />
             <Route path="*" element={<ErrorNotFound />} />
           </Routes>
         </BrowserRouter>
