@@ -1,0 +1,24 @@
+.admin-page {
+  .card-admin {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+
+    .img {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    p {
+      width: 70%;
+      height: 200px;
+      padding: 10px;
+      text-align: left;
+
+      overflow-y: scroll;
+      white-space: pre-wrap;
+      border: 1px solid lightgray;
+    }
+  }
+}

@@ -5,7 +5,16 @@ import { ReactComponent as Morehorizontal } from "../../assets/icon/morehorizont
 import { user1 } from "../../assets";
 import { AlertBox, Header } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteDoc, doc, getDoc, onSnapshot, collection, query, where } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  collection,
+  query,
+  where,
+  setDoc,
+} from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
@@ -43,16 +52,16 @@ const Detail = () => {
     if (docSnap.exists()) {
       let data = docSnap.data();
 
-      const collectionRef = collection(db, "users")
-        const q = query(collectionRef, where("uid", "==", data.uid))
+      const collectionRef = collection(db, "users");
+      const q = query(collectionRef, where("uid", "==", data.uid));
       onSnapshot(q, (e) => {
         e.docs.map((el) => {
           data = {
             ...data,
-            displayName: el.data().displayName
-          }
-        })
-      })
+            displayName: el.data().displayName,
+          };
+        });
+      });
 
       getDownloadURL(ref(storage, `poster-images/${data.uid}/${data.filename}`))
         .then((url) => {
@@ -114,6 +123,25 @@ const Detail = () => {
     }
   };
 
+  const report = async () => {
+    setDoc(doc(collection(db, "report")), {
+      posterId,
+      data,
+    })
+      .then(() => {
+        setAlert(
+          <AlertBox
+            message={"Poster berhasil dilaporkan!"}
+            redirect={"/"}
+            isDanger={false}
+          />
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleClickOutside = (e) => {
     if (node && node.current && node.current.contains(e.target)) {
       // inside click
@@ -170,7 +198,8 @@ const Detail = () => {
               ) : (
                 false
               )}
-              <p>Share</p>
+              <p>Bagikan</p>
+              <p onClick={() => report()}>Laporkan</p>
             </div>
           ) : (
             ""

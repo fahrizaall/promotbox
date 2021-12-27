@@ -30,6 +30,21 @@ a {
           }
         }
       }
+
+      .report {
+        margin-bottom: 30px;
+        p {
+          margin: 10px 0;
+          padding: 10px;
+          cursor: pointer;
+          border-radius: 10px;
+          border: 1px solid red;
+        }
+        p:hover {
+          background-color: red;
+          color: white;
+        }
+      }
     }
   }
   .navigation {
@@ -124,6 +139,10 @@ a {
       .desc {
         margin-top: 12px;
         text-align: left;
+
+        p {
+          white-space: pre-wrap;
+        }
       }
     }
   }

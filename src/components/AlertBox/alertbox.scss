@@ -32,9 +32,11 @@
       border-radius: 10px;
       cursor: pointer;
 
-      a {
-        color: white;
-      }
+      color: white;
+    }
+
+    button:hover {
+      background-color: $btn-hover;
     }
   }
 }

@@ -33,9 +33,7 @@ const AlertBox = ({
         {isDanger ? (
           ""
         ) : (
-          <button>
-            <a href={redirect}>Oke</a>
-          </button>
+          <button onClick={() => navigate(redirect)}>Oke</button>
         )}
       </div>
     </div>

@@ -8,6 +8,7 @@ import CreatePost from "./pages/createPost";
 import { AuthProvider } from "./contexts/authContext";
 import Me from "./pages/me";
 import LoginVerify from "./pages/loginVerify";
+import AdminPage from "./pages/adminPage";
 
 function App() {
   return (
@@ -15,13 +16,12 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path="/admin-promotbox/@7" element={<AdminPage />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/poster/:id" element={<Detail />} />
             <Route path="/me" element={<Me />} />
             <Route path="/login" element={<Auth />} />
-            <Route path="/" element={<Home />}>
-              
-            </Route>
+            <Route path="/" element={<Home />}></Route>
             <Route path="kategori/:tag" element={<Home />} />
             <Route path="cari/:searchquery" element={<Home />} />
             <Route path="/verify-login" element={<LoginVerify />} />

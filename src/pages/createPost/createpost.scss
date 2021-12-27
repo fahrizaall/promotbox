@@ -83,6 +83,12 @@
         margin: 0 0 5px 0;
       }
 
+      input {
+        border: 1px solid lightgray;
+        line-height: 25px;
+        margin-bottom: 5px;
+      }
+
       textarea {
         resize: none;
         width: calc(100% - 10px);
@@ -120,6 +126,9 @@
         background-color: $btn;
         border: none;
         cursor: pointer;
+      }
+      button:hover {
+        background-color: $btn-hover;
       }
 
       .tag-input {
