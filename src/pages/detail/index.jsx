@@ -200,7 +200,8 @@ const Detail = () => {
               ) : (
                 false
               )}
-              <p onClick={handleShare}>Share</p>
+              <p onClick={handleShare}>Bagikan</p>
+              <p onClick={() => report()}>Laporkan</p>
               {user && user.uid === data.uid ? (
                 <p
                   className="detail-opt-hapus"
@@ -211,8 +212,6 @@ const Detail = () => {
               ) : (
                 false
               )}
-              <p>Bagikan</p>
-              <p onClick={() => report()}>Laporkan</p>
             </div>
           ) : (
             ""
@@ -228,9 +227,9 @@ const Detail = () => {
           <div
             className="account"
             onClick={() => {
-              data.uid === user.uid
-                ? navigate(`/me`)
-                : navigate(`/profile/${data.uid}`);
+              user == null || data.uid !== user.uid
+                ? navigate(`/profile/${data.uid}`)
+                : navigate(`/me`);
             }}
           >
             <div className="p-pic">
