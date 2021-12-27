@@ -24,6 +24,7 @@ const Home = () => {
   const [posters, setPosters] = useState([]);
   const [loadMoreToken, setLoadMoreToken] = useState(false);
   const [isActiveTag, setIsActiveTag] = useState("all");
+  const [isLoading, setIsLoading] = useState(true);
 
   const tag = [
     "Seni",
@@ -52,6 +53,7 @@ const Home = () => {
   };
 
   const loadContents = async (loadMore) => {
+    setIsLoading(true);
     let dataQuery;
     let data = [];
 
@@ -80,7 +82,7 @@ const Home = () => {
       }
     }
 
-    getDocs(dataQuery).then((querySnapshots) => {
+    await getDocs(dataQuery).then((querySnapshots) => {
       querySnapshots.forEach((doc) => {
         let rawData = doc.data();
         rawData.doc_id = doc.id;
@@ -95,14 +97,18 @@ const Home = () => {
           .then(() => {
             setPosters(data);
             setLoadMoreToken(data.length);
+            setIsLoading(false);
           })
           .catch(console.error);
       });
     });
+
+    
   };
 
   async function fetchData() {
     await loadContents(false);
+    setIsLoading(false);
   }
 
   const scroll = (scrollOffset) => {
@@ -173,7 +179,9 @@ const Home = () => {
       )}
       <main>
         <div className="poster-container">
-          {posters && posters.length > 0
+          {
+            isLoading === true ? "Loading..."
+            : posters && posters.length > 0
             ? posters.map((poster, i) => (
                 <div className={`card ${randomCardSize()}`} key={i}>
                   <PosterCard
@@ -182,7 +190,8 @@ const Home = () => {
                   />
                 </div>
               ))
-            : "Loading..."}
+            : "Tidak ada poster"
+            }
         </div>
       </main>
       <Footer />

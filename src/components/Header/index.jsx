@@ -112,7 +112,10 @@ const Header = () => {
             onChange={handleChange}
           />
           <button onClick={handleSearch} className="search-btn">
-            <SearchIco stroke="white" fill="white" width={20} height={20} />
+            <div>
+              <SearchIco stroke="white" fill="white" width={20} height={20} />
+            </div>
+            <span>Cari</span>
           </button>
           <button className="cancel-btn" onClick={() => setShowSearch(false)}>
             Batal
