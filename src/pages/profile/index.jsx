@@ -1,17 +1,20 @@
 import { user1 } from "../../assets";
 import { Header, PosterCard } from "../../components";
 import { useAuth } from "../../contexts/authContext";
-import "./me.scss";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-export default function Me() {
+import { useParams } from "react-router-dom";
+
+export default function Profile() {
+  const params = useParams();
   const { user } = useAuth();
   const [poster, setPosters] = useState([]);
   const [loadStage, setLoadStage] = useState(0);
+  const [userData, setUserData] = useState()
 
   const randomCardSize = () => {
     let cardClass = ["card-small", "card-medium", "card-large"];
@@ -20,9 +23,20 @@ export default function Me() {
     return cardClass[rand];
   };
 
-  function getUserPosts() {
+  function getUserProfile(userUid) {
+    const userRef = collection(db, "users");
+    const q = query(userRef, where("uid", "==", userUid));
+    getDocs(q)
+    .then((e) => {
+      e.docs.map((el) => {
+        setUserData(el.data())
+      })
+    })
+  }
+
+  function getUserPosts(userUid) {
     const postersRef = collection(db, "posters");
-    const q = query(postersRef, where("uid", "==", user.uid));
+    const q = query(postersRef, where("uid", "==", userUid));
 
     getDocs(q)
       .then((doc) => {
@@ -51,27 +65,28 @@ export default function Me() {
   }
 
   useEffect(() => {
-    if (user) {
-      getUserPosts();
+    if (params.id) {
+      getUserPosts(params.id);
+      getUserProfile(params.id);
     }
-  }, [user]);
+  }, [params, params.id]);
 
   return (
     <div className="me-wrapper">
       <Header />
-      {user ? (
+      {userData ? (
         <div>
           <Helmet>
-            <title>Profil {user.displayName} - PromotBox</title>
+            <title>Profil {userData.displayName ? userData.displayName : false} - PromotBox</title>
           </Helmet>
           <div className="me-header">
             <img
-              src={user.photoURL ? user.photoURL : user1}
+              src={userData.photoURL ? userData.photoURL : user1}
               alt=""
               className="profile-picture"
             />
-            <p className="user-name">{user.displayName}</p>
-            <p className="user-email">{user.email}</p>
+            <p className="user-name">{userData.displayName? userData.displayName : false}</p>
+            {/* <p className="user-email">{poster.length} poster</p> */}
           </div>
           <div className="divider"></div>
           <div className="me-contents">

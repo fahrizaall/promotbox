@@ -7,13 +7,18 @@ import {
   where,
   onSnapshot,
   addDoc,
-  doc
+  doc,
+  setDoc
 } from "firebase/firestore"
 import { useAuth } from "../../contexts/authContext";
 
 export default function LoginVerify() {
     let { user } = useAuth()
     const navigate = useNavigate()
+
+    const config_flags = {
+        testGroup: Math.random() > 0.5 ? "A" : "B"
+    }
 
     function verify(u) {
         if(u == null) return
@@ -23,6 +28,13 @@ export default function LoginVerify() {
         onSnapshot(q, (e) => {
             e.docs.map((el) => {
             // user found
+                setDoc(doc(db, "users", el.id), {
+                    ...el.data(),
+                    lastLoginAt: u.metadata.lastSignInTime,
+                    photoURL: u.photoURL,
+                    providerData: u.providerData,
+                    flags : el.data().flags ? el.data().flags : config_flags,
+                })
                 navigate("/")
             })
 
@@ -41,7 +53,9 @@ export default function LoginVerify() {
                     photoURL: u.photoURL,
                     isSuspended: false,
                     isBanned: false,
-                    role: 1
+                    isVerifiedUser: false,
+                    role: 1,
+                    flags: config_flags,
                 })
                 .then(() => {
                     navigate("/")

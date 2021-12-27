@@ -64,8 +64,7 @@ const CreatePost = () => {
   const handleSubmit = async () => {
     if (form.filename.length > 0 && form.caption.length > 0) {
       let finalForm = form;
-
-      finalForm.displayName = user.displayName;
+      
       finalForm.uid = user.uid;
       finalForm.filename = date.getTime() + "_" + finalForm.filename;
 
