@@ -9,6 +9,7 @@ import { AuthProvider } from "./contexts/authContext";
 import Me from "./pages/me";
 import LoginVerify from "./pages/loginVerify";
 import AdminPage from "./pages/adminPage";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/poster/:id" element={<Detail />} />
             <Route path="/me" element={<Me />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="/login" element={<Auth />} />
             <Route path="/" element={<Home />}></Route>
             <Route path="kategori/:tag" element={<Home />} />

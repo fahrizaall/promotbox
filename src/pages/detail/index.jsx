@@ -59,6 +59,7 @@ const Detail = () => {
           data = {
             ...data,
             displayName: el.data().displayName,
+            photoURL: el.data().photoURL,
           };
         });
       });
@@ -151,6 +152,10 @@ const Detail = () => {
     setShowMore(false);
   };
 
+  function handleShare() {
+    navigator.clipboard.writeText(window.location.href);
+  }
+
   // get click outside
   useEffect(() => {
     if (showMore) {
@@ -172,7 +177,9 @@ const Detail = () => {
       <Header />
 
       <Helmet>
-        <title>Detail Poster - PromotBox</title>
+        <title>
+          {data && data.title ? data.title : "Detail Poster"} - PromotBox
+        </title>
       </Helmet>
 
       {alert}
@@ -193,8 +200,14 @@ const Detail = () => {
               ) : (
                 false
               )}
+              <p onClick={handleShare}>Share</p>
               {user && user.uid === data.uid ? (
-                <p onClick={() => deleteData(false)}>Hapus</p>
+                <p
+                  className="detail-opt-hapus"
+                  onClick={() => deleteData(false)}
+                >
+                  Hapus
+                </p>
               ) : (
                 false
               )}
@@ -212,9 +225,16 @@ const Detail = () => {
           <img src={data.filename} alt="" />
         </div>
         <div className="info">
-          <div className="account">
+          <div
+            className="account"
+            onClick={() => {
+              data.uid === user.uid
+                ? navigate(`/me`)
+                : navigate(`/profile/${data.uid}`);
+            }}
+          >
             <div className="p-pic">
-              <img src={user1} alt="" />
+              <img src={data && data.photoURL ? data.photoURL : user1} alt="" />
             </div>
             <div className="author-info">
               <p>{data.displayName}</p>
@@ -223,6 +243,7 @@ const Detail = () => {
           </div>
 
           <div className="desc">
+            <h2 className="title">{data.title}</h2>
             <p>{data.caption}</p>
           </div>
         </div>

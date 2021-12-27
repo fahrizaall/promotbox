@@ -66,21 +66,54 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      gap: 10px;
 
       margin: 10px 0;
-      padding: 10%;
+      padding: 15px 10%;
 
       font-size: 14px;
 
-      select {
-        padding: 5px;
-        // border-radius: 8px;
-        border: 1px solid lightgray;
-        outline: none;
-      }
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-items: start;
+        text-align: left;
 
-      label {
-        margin: 0 0 5px 0;
+        select {
+          padding: 5px;
+          // border-radius: 8px;
+          border: 1px solid lightgray;
+          outline: none;
+        }
+
+        label {
+          margin: 0 0 5px 0;
+        }
+
+        input {
+          border: 1px solid lightgray;
+          border-radius: 0px;
+          padding: 5px;
+        }
+
+        textarea {
+          resize: none;
+
+          padding: 8px;
+          // border-radius: 8px;
+          border: 1px solid lightgray;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+          border-bottom: 2px solid #59caff;
+        }
+
+        .theme-color-input {
+          background-color: #fff;
+        }
       }
 
       input {
@@ -91,13 +124,6 @@
 
       textarea {
         resize: none;
-        width: calc(100% - 10px);
-        height: 400px;
-        padding: 5px;
-        margin: 0 0 10px 0;
-        padding: 8px;
-        // border-radius: 8px;
-        border: 1px solid lightgray;
       }
 
       /* width */

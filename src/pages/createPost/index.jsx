@@ -32,11 +32,13 @@ const CreatePost = () => {
   const [alert, setAlert] = useState();
   const [images, setImages] = useState();
   const [imageURLs, setImageURLs] = useState();
-  const [isUploading, setIsUploading] = useState(false);
+  const [uploadStage, setUploadStage] = useState(0);
 
   const [form, setForm] = useState({
     filename: "",
     tag: "",
+    title: "",
+    themeColor: "",
     caption: "",
     timestamp: serverTimestamp(),
   });
@@ -62,8 +64,7 @@ const CreatePost = () => {
   const handleSubmit = async () => {
     if (form.filename.length > 0 && form.caption.length > 0) {
       let finalForm = form;
-
-      finalForm.displayName = user.displayName;
+      
       finalForm.uid = user.uid;
       finalForm.filename = date.getTime() + "_" + finalForm.filename;
 
@@ -74,7 +75,7 @@ const CreatePost = () => {
       let newPosterRef = doc(collection(db, "posters"));
 
       try {
-        setIsUploading(true);
+        setUploadStage(1);
         await setDoc(newPosterRef, finalForm);
         await uploadBytes(storageRef, images);
         setAlert(
@@ -84,10 +85,10 @@ const CreatePost = () => {
             isDanger={false}
           />
         );
+        setUploadStage(2)
       } catch (error) {
         console.log(error);
-      } finally {
-        setIsUploading(false);
+        setUploadStage(0);
       }
     } else {
       console.log("fill all the field");
@@ -105,9 +106,9 @@ const CreatePost = () => {
     <div className="create-post-container">
       <Header />
       <Helmet>
-        <title>Create Post - PromotBox</title>
+        <title>Upload Poster - PromotBox</title>
       </Helmet>
-      <h1>Create Post</h1>
+      <h1>Upload Poster</h1>
       {alert}
       <div className="form-box">
         <div className="img-wrapper">
@@ -138,23 +139,37 @@ const CreatePost = () => {
               ))}
             </select>
           </div>
-          <label htmlFor="title">Judul</label>
-          <input type="text" name="title" id="title" onChange={handleChange} />
-          <label htmlFor="caption">Caption</label>
-          <textarea
-            name="caption"
-            id="caption"
-            cols="30"
-            rows="10"
-            onChange={handleChange}
-            required={true}
-            autoCorrect="false"
-          ></textarea>
+          
+          <div>
+            <label htmlFor="title">Judul</label>
+            <input type="text" name="title" id="title" onChange={handleChange} required />
+          </div>
+
+          <div className="caption-group">
+            <label htmlFor="caption">Caption</label>
+            <textarea
+              name="caption"
+              id="caption"
+              cols="30"
+              rows="10"
+              onChange={handleChange}
+              required={true}
+              autoCorrect="false"
+            ></textarea>
+          </div>
+
+          <div>
+            <label htmlFor="themeColor">Warna Latar Belakang</label>
+            <input type="color" name="themeColor" id="themeColor" className="theme-color-input" onChange={handleChange} required />
+          </div>
 
           {
-            isUploading === false ? 
+            uploadStage === 0 ? 
             <button onClick={handleSubmit}>Upload Poster</button>
-            : <button>Sedang mengunggah poster...</button>
+            : uploadStage === 1 ?
+            <button>Sedang mengunggah poster...</button>
+            :
+            <button>Poster berhasil diunggah!</button>
           }
         </div>
       </div>
