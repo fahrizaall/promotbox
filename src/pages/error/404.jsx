@@ -18,7 +18,7 @@ export default function ErrorNotFound() {
                     <span className="color-grey">Back</span>
                 </button>
             </div>
-            <div>
+            <div className="err-content-wrapper">
                 <h1>
                     Halaman tidak ditemukan!
                 </h1>
