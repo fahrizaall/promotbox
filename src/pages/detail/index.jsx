@@ -52,6 +52,10 @@ const Detail = () => {
     if (docSnap.exists()) {
       let data = docSnap.data();
 
+      setDoc(doc(db, "posters", posterId), {
+        view: docSnap.data().view + 1
+      })
+
       const collectionRef = collection(db, "users");
       const q = query(collectionRef, where("uid", "==", data.uid));
       onSnapshot(q, (e) => {

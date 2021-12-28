@@ -41,6 +41,7 @@ const CreatePost = () => {
     themeColor: "#bfbfbf",
     caption: "",
     timestamp: serverTimestamp(),
+    view: 0,
   });
 
   const handleImage = (e) => {

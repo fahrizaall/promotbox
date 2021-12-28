@@ -54,6 +54,7 @@ export default function LoginVerify() {
                     isSuspended: false,
                     isBanned: false,
                     isVerifiedUser: false,
+                    userLevel: "standard", // standard, business, mediapartner
                     role: 1,
                     flags: config_flags,
                 })
