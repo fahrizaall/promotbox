@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { app, db } from "../../firebase-config";
+import { db } from "../../firebase-config";
 import {
   collection,
   query,
@@ -54,6 +54,7 @@ export default function LoginVerify() {
                     isSuspended: false,
                     isBanned: false,
                     isVerifiedUser: false,
+                    userLevel: "standard", // standard, business, mediapartner
                     role: 1,
                     flags: config_flags,
                 })

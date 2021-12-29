@@ -10,25 +10,28 @@ import Me from "./pages/me";
 import LoginVerify from "./pages/loginVerify";
 import AdminPage from "./pages/adminPage";
 import Profile from "./pages/profile";
+import ErrorBoundary from "./pages/error/Boundary";
 
 function App() {
   return (
     <AuthProvider>
       <div className="App">
         <BrowserRouter>
-          <Routes>
-            <Route path="/admin-promotbox/@7" element={<AdminPage />} />
-            <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/poster/:id" element={<Detail />} />
-            <Route path="/me" element={<Me />} />
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/login" element={<Auth />} />
-            <Route path="/" element={<Home />}></Route>
-            <Route path="kategori/:tag" element={<Home />} />
-            <Route path="cari/:searchquery" element={<Home />} />
-            <Route path="/verify-login" element={<LoginVerify />} />
-            <Route path="*" element={<ErrorNotFound />} />
-          </Routes>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/admin-promotbox/@7" element={<AdminPage />} />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/poster/:id" element={<Detail />} />
+              <Route path="/me" element={<Me />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/login" element={<Auth />} />
+              <Route path="/" element={<Home />}></Route>
+              <Route path="kategori/:tag" element={<Home />} />
+              <Route path="cari/:searchquery" element={<Home />} />
+              <Route path="/verify-login" element={<LoginVerify />} />
+              <Route path="*" element={<ErrorNotFound />} />
+            </Routes>
+          </ErrorBoundary>
         </BrowserRouter>
       </div>
     </AuthProvider>

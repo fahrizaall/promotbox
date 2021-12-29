@@ -26,3 +26,11 @@
     margin-right: 3rem;
     margin-top:3rem;
 }
+
+.err-content-wrapper {
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}

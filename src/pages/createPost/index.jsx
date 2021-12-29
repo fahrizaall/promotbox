@@ -38,9 +38,10 @@ const CreatePost = () => {
     filename: "",
     tag: "",
     title: "",
-    themeColor: "",
+    themeColor: "#bfbfbf",
     caption: "",
     timestamp: serverTimestamp(),
+    view: 0,
   });
 
   const handleImage = (e) => {
@@ -62,7 +63,8 @@ const CreatePost = () => {
   };
 
   const handleSubmit = async () => {
-    if (form.filename.length > 0 && form.caption.length > 0) {
+    if (form.filename.length > 0 && form.caption.length > 0 && form.tag.length > 0 && form.title.length > 0) {
+      // && form.themeColor.length > 0
       let finalForm = form;
       
       finalForm.uid = user.uid;
@@ -159,8 +161,8 @@ const CreatePost = () => {
           </div>
 
           <div>
-            <label htmlFor="themeColor">Warna Latar Belakang</label>
-            <input type="color" name="themeColor" id="themeColor" className="theme-color-input" onChange={handleChange} required />
+            {/* <label htmlFor="themeColor">Warna Latar Belakang</label> */}
+            <input type="hidden" name="themeColor" id="themeColor" className="theme-color-input" onChange={handleChange} required />
           </div>
 
           {
