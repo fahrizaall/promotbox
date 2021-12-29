@@ -3,6 +3,41 @@ $card-small: 24;
 $card-medium: 29;
 $card-large: 33;
 
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    
+  }
+}
+
+.load-nocontent-screen {
+  display: absolute;
+  height: 10vh;
+  width: 100vh;
+  top: 500px;
+  left: 50vw;
+  
+  
+  img {
+    height: 50px;
+    width: 50px;
+    animation-name: rotate;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    transition: all;
+    transform: rotate(0deg);
+  }
+}
+
+
+
 .home-container {
   .search-result-query {
     text-align: left;
@@ -92,6 +127,7 @@ $card-large: 33;
     justify-content: center;
 
     .poster-container {
+      position: relative;
       width: 90vw;
       margin: 0;
       padding: 0;

@@ -2,6 +2,7 @@ import { Header, Footer, PosterCard } from "../../components";
 import "./home.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Arrowleft } from "../../assets/icon/arrowleft.svg";
+import { ReactComponent as LoadingIllustration } from '../../assets/icon/logo.svg';
 import React, { useEffect, useRef, useState } from "react";
 import "./home.scss";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -180,7 +181,11 @@ const Home = () => {
       <main>
         <div className="poster-container">
           {
-            isLoading === true ? "Loading..."
+            isLoading === true ? 
+            <div className="load-nocontent-screen">
+              <img src="/logo231.svg" alt="" />
+              {/* <span>Loading...</span> */}
+            </div>
             : posters && posters.length > 0
             ? posters.map((poster, i) => (
                 <div className={`card ${randomCardSize()}`} key={i}>
@@ -190,7 +195,11 @@ const Home = () => {
                   />
                 </div>
               ))
-            : "Tidak ada poster"
+            : 
+            <div className="load-nocontent-screen">
+              {/* <NoDataIllustration width={100} /> */}
+              <span>Tidak ada data</span>
+            </div>
             }
         </div>
       </main>

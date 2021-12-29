@@ -19,7 +19,7 @@ function App() {
         <BrowserRouter>
           <ErrorBoundary>
             <Routes>
-              <Route path="/admin-promotbox/@7" element={<AdminPage />} />
+              <Route path="/admin-promotbox/971257" element={<AdminPage />} />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="/poster/:id" element={<Detail />} />
               <Route path="/me" element={<Me />} />
