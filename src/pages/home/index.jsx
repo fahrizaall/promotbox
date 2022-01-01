@@ -2,7 +2,7 @@ import { Header, Footer, PosterCard } from "../../components";
 import "./home.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Arrowleft } from "../../assets/icon/arrowleft.svg";
-import { ReactComponent as LoadingIllustration } from '../../assets/icon/logo.svg';
+import { ReactComponent as LoadingIllustration } from "../../assets/icon/logo.svg";
 import React, { useEffect, useRef, useState } from "react";
 import "./home.scss";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -67,7 +67,7 @@ const Home = () => {
       dataQuery = query(
         collection(db, "posters"),
         where("displayName", ">=", `${params.searchquery}`),
-        where("displayName", "<=", `${params.searchquery}\uf8ff`),
+        where("displayName", "<=", `${params.searchquery}\uf8ff`)
       );
     } else {
       if (loadMore) {
@@ -103,8 +103,6 @@ const Home = () => {
           .catch(console.error);
       });
     });
-
-    
   };
 
   async function fetchData() {
@@ -180,27 +178,26 @@ const Home = () => {
       )}
       <main>
         <div className="poster-container">
-          {
-            isLoading === true ? 
+          {isLoading === true ? (
             <div className="load-nocontent-screen">
               <img src="/logo231.svg" alt="" />
-              {/* <span>Loading...</span> */}
+              <span>Loading...</span>
             </div>
-            : posters && posters.length > 0
-            ? posters.map((poster, i) => (
-                <div className={`card ${randomCardSize()}`} key={i}>
-                  <PosterCard
-                    imageUrl={poster.imageUrl}
-                    posterId={poster.doc_id}
-                  />
-                </div>
-              ))
-            : 
+          ) : posters && posters.length > 0 ? (
+            posters.map((poster, i) => (
+              <div className={`card ${randomCardSize()}`} key={i}>
+                <PosterCard
+                  imageUrl={poster.imageUrl}
+                  posterId={poster.doc_id}
+                />
+              </div>
+            ))
+          ) : (
             <div className="load-nocontent-screen">
               {/* <NoDataIllustration width={100} /> */}
               <span>Tidak ada data</span>
             </div>
-            }
+          )}
         </div>
       </main>
       <Footer />

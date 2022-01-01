@@ -3,7 +3,6 @@ $card-small: 24;
 $card-medium: 29;
 $card-large: 33;
 
-
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -13,30 +12,8 @@ $card-large: 33;
   }
   100% {
     transform: rotate(360deg);
-    
   }
 }
-
-.load-nocontent-screen {
-  display: absolute;
-  height: 10vh;
-  width: 100vh;
-  top: 500px;
-  left: 50vw;
-  
-  
-  img {
-    height: 50px;
-    width: 50px;
-    animation-name: rotate;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    transition: all;
-    transform: rotate(0deg);
-  }
-}
-
-
 
 .home-container {
   .search-result-query {
@@ -127,7 +104,6 @@ $card-large: 33;
     justify-content: center;
 
     .poster-container {
-      position: relative;
       width: 90vw;
       margin: 0;
       padding: 0;
@@ -136,6 +112,32 @@ $card-large: 33;
       grid-template-columns: repeat(auto-fill, 140px);
       grid-auto-rows: 8px;
       justify-content: space-around;
+      // background-color: cornflowerblue;
+
+      .load-nocontent-screen {
+        position: absolute;
+        width: 90vw;
+        top: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+
+        img {
+          height: 50px;
+          width: 50px;
+          animation-name: rotate;
+          animation-duration: 3s;
+          animation-iteration-count: infinite;
+          transition: all;
+          transform: rotate(0deg);
+        }
+
+        span {
+          margin-left: 5px;
+          font-weight: 600;
+        }
+      }
     }
 
     .card {

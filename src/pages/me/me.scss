@@ -2,6 +2,32 @@ $card-small: 24;
 $card-medium: 29;
 $card-large: 33;
 
+.load-nocontent-screen {
+  position: absolute;
+  width: 90vw;
+  margin: 0 5vw;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+
+  img {
+    height: 50px;
+    width: 50px;
+    animation-name: rotate;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    transition: all;
+    transform: rotate(0deg);
+  }
+
+  span {
+    margin-left: 5px;
+    font-weight: 600;
+  }
+}
+
 .profile-picture {
   border-radius: 50%;
 }
@@ -21,6 +47,10 @@ $card-large: 33;
     grid-template-columns: repeat(auto-fill, 250px);
     grid-auto-rows: 12px;
     justify-content: space-around;
+
+    .load-nocontent-screen {
+      margin: 0;
+    }
   }
   .card {
     margin: 15px 0;

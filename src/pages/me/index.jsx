@@ -45,7 +45,7 @@ export default function Me() {
         });
       })
       .then(() => {
-        setLoadStage(1)
+        setLoadStage(1);
       })
       .catch(console.error);
   }
@@ -75,24 +75,26 @@ export default function Me() {
           </div>
           <div className="divider"></div>
           <div className="me-contents">
-            {poster.length > 0
-              ? poster.map((e, i) => (
-                  <div className={`card ${randomCardSize()}`} key={i}>
-                    <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
-                  </div>
-                ))
-              : loadStage === 0 ? 
+            {poster.length > 0 ? (
+              poster.map((e, i) => (
+                <div className={`card ${randomCardSize()}`} key={i}>
+                  <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
+                </div>
+              ))
+            ) : loadStage === 0 ? (
               <div className="load-nocontent-screen">
                 <img src="/logo231.svg" alt="" />
-                {/* <span>Loading...</span> */}
+                <span>Loading...</span>
               </div>
-              : "Tidak ada poster"
-            }
+            ) : (
+              "Tidak ada poster"
+            )}
           </div>
         </div>
       ) : (
         <div className="load-nocontent-screen">
           <img src="/logo231.svg" alt="" />
+          <span>Loading...</span>
         </div>
       )}
     </div>

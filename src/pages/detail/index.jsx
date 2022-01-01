@@ -5,8 +5,8 @@ import { ReactComponent as Morehorizontal } from "../../assets/icon/morehorizont
 import { user1 } from "../../assets";
 import { AlertBox, Header } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   deleteDoc,
   doc,
@@ -47,8 +47,10 @@ const Detail = () => {
   const [showMore, setShowMore] = useState(false);
   const node = useRef();
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const getData = async () => {
+    setIsLoading(true);
     let docSnap = await getDoc(doc(db, "posters", posterId));
 
     if (docSnap.exists()) {
@@ -56,8 +58,8 @@ const Detail = () => {
 
       setDoc(doc(db, "posters", posterId), {
         ...docSnap.data(),
-        view: docSnap.data().view + 1
-      })
+        view: docSnap.data().view + 1,
+      });
 
       const collectionRef = collection(db, "users");
       const q = query(collectionRef, where("uid", "==", data.uid));
@@ -81,6 +83,7 @@ const Detail = () => {
             month[date.getMonth()]
           } ${date.getFullYear()}`;
           setData(data);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -98,14 +101,11 @@ const Detail = () => {
       // Delete the file
       deleteObject(desertRef).then(function () {
         deleteDoc(doc(db, "posters", posterId)).then((e) => {
-          setAlert(
-            <AlertBox
-              isDanger={false}
-              message={"Poster berhasil dihapus"}
-              redirect={"/"}
-              isShow={true}
-            />
-          );
+          setAlert("");
+          toast.success("Poster berhasil dihapus!");
+          setTimeout(function () {
+            navigate("/");
+          }, 3000);
         });
       });
     } else {
@@ -137,13 +137,7 @@ const Detail = () => {
       data,
     })
       .then(() => {
-        setAlert(
-          <AlertBox
-            message={"Poster berhasil dilaporkan!"}
-            redirect={"/"}
-            isDanger={false}
-          />
-        );
+        toast.success("Poster berhasil dilaporkan!");
       })
       .catch((error) => {
         console.log(error);
@@ -163,7 +157,7 @@ const Detail = () => {
 
   function handleShare() {
     navigator.clipboard.writeText(window.location.href);
-    CopiedToClipboard()
+    CopiedToClipboard();
   }
 
   // get click outside
@@ -184,7 +178,7 @@ const Detail = () => {
 
   return (
     <div className="detail-container">
-      <ToastContainer 
+      <ToastContainer
         position="bottom-right"
         autoClose={3000}
         newestOnTop={true}
@@ -235,34 +229,44 @@ const Detail = () => {
         </div>
       </div>
 
-      <main>
-        <div className="img-wrapper">
-          <img src={data.filename} alt="" />
+      {isLoading ? (
+        <div className="load-nocontent-screen">
+          <img src="/logo231.svg" alt="" />
+          <span>Loading...</span>
         </div>
-        <div className="info">
-          <div
-            className="account"
-            onClick={() => {
-              user == null || data.uid !== user.uid
-                ? navigate(`/profile/${data.uid}`)
-                : navigate(`/me`);
-            }}
-          >
-            <div className="p-pic">
-              <img src={data && data.photoURL ? data.photoURL : user1} alt="" />
-            </div>
-            <div className="author-info">
-              <p>{data.displayName}</p>
-              <span>{data.stringifiedDate}</span>
-            </div>
+      ) : (
+        <main>
+          <div className="img-wrapper">
+            <img src={data.filename} alt="" />
           </div>
+          <div className="info">
+            <div
+              className="account"
+              onClick={() => {
+                user == null || data.uid !== user.uid
+                  ? navigate(`/profile/${data.uid}`)
+                  : navigate(`/me`);
+              }}
+            >
+              <div className="p-pic">
+                <img
+                  src={data && data.photoURL ? data.photoURL : user1}
+                  alt=""
+                />
+              </div>
+              <div className="author-info">
+                <p>{data.displayName}</p>
+                <span>{data.stringifiedDate}</span>
+              </div>
+            </div>
 
-          <div className="desc">
-            <h2 className="title">{data.title}</h2>
-            <p>{data.caption}</p>
+            <div className="desc">
+              <h2 className="title">{data.title}</h2>
+              <p>{data.caption}</p>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { user1 } from "../../assets";
+import { logo, user1 } from "../../assets";
 import { ReactComponent as SearchIco } from "../../assets/icon/search.svg";
 import { ReactComponent as GoogleIco } from "../../assets/icon/icons8-google.svg";
 import { useAuth } from "../../contexts/authContext";
@@ -58,7 +58,7 @@ const Header = () => {
   return (
     <header className="header">
       <Link className="header-title" to="/">
-        <img src="/logotext.svg" />
+        <img src={logo} />
       </Link>
       <div className="header-icon">
         <span className="search-icon" onClick={() => setShowSearch(true)}>
