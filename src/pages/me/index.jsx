@@ -81,13 +81,19 @@ export default function Me() {
                     <PosterCard imageUrl={e.imageUrl} posterId={e.id} />
                   </div>
                 ))
-              : loadStage === 0 ? "Loading..."
+              : loadStage === 0 ? 
+              <div className="load-nocontent-screen">
+                <img src="/logo231.svg" alt="" />
+                {/* <span>Loading...</span> */}
+              </div>
               : "Tidak ada poster"
             }
           </div>
         </div>
       ) : (
-        "Loading..."
+        <div className="load-nocontent-screen">
+          <img src="/logo231.svg" alt="" />
+        </div>
       )}
     </div>
   );

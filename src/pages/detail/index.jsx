@@ -5,6 +5,8 @@ import { ReactComponent as Morehorizontal } from "../../assets/icon/morehorizont
 import { user1 } from "../../assets";
 import { AlertBox, Header } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   deleteDoc,
   doc,
@@ -53,6 +55,7 @@ const Detail = () => {
       let data = docSnap.data();
 
       setDoc(doc(db, "posters", posterId), {
+        ...docSnap.data(),
         view: docSnap.data().view + 1
       })
 
@@ -156,8 +159,11 @@ const Detail = () => {
     setShowMore(false);
   };
 
+  const CopiedToClipboard = () => toast.info("Link disalin ke clipboard!");
+
   function handleShare() {
     navigator.clipboard.writeText(window.location.href);
+    CopiedToClipboard()
   }
 
   // get click outside
@@ -178,6 +184,12 @@ const Detail = () => {
 
   return (
     <div className="detail-container">
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={3000}
+        newestOnTop={true}
+        pauseOnHover={true}
+      />
       <Header />
 
       <Helmet>

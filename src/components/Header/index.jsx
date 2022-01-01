@@ -58,7 +58,7 @@ const Header = () => {
   return (
     <header className="header">
       <Link className="header-title" to="/">
-        <img src="/logo231.png" /> PromotBox
+        <img src="/logotext.svg" />
       </Link>
       <div className="header-icon">
         <span className="search-icon" onClick={() => setShowSearch(true)}>
@@ -105,18 +105,20 @@ const Header = () => {
 
       <div className={`search ${showSearch ? "show" : "hide"}`}>
         <form action="" className="search-form">
-          <input
-            type="text"
-            className="search-field"
-            placeholder="Search..."
-            onChange={handleChange}
-          />
-          <button onClick={handleSearch} className="search-btn">
-            <div>
-              <SearchIco stroke="white" fill="white" width={20} height={20} />
-            </div>
-            <span>Cari</span>
-          </button>
+          <div className="search-field-parent">
+            <input
+              type="text"
+              className="search-field"
+              placeholder="Search..."
+              onChange={handleChange}
+            />
+            <button onClick={handleSearch} className="search-btn">
+              <div>
+                <SearchIco stroke="white" fill="white" width={20} height={20} />
+              </div>
+              <span>Cari</span>
+            </button>
+          </div>
           <button className="cancel-btn" onClick={() => setShowSearch(false)}>
             Batal
           </button>
