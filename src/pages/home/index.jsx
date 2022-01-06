@@ -194,7 +194,6 @@ const Home = () => {
             ))
           ) : (
             <div className="load-nocontent-screen">
-              {/* <NoDataIllustration width={100} /> */}
               <span>Tidak ada data</span>
             </div>
           )}
