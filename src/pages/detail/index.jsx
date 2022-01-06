@@ -132,16 +132,20 @@ const Detail = () => {
   };
 
   const report = async () => {
-    setDoc(doc(collection(db, "report")), {
-      posterId,
-      data,
-    })
-      .then(() => {
-        toast.success("Poster berhasil dilaporkan!");
+    if (user) {
+      setDoc(doc(collection(db, "report")), {
+        posterId,
+        data,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(() => {
+          toast.success("Poster berhasil dilaporkan!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      toast.warning("Login untuk bisa melaporkan!");
+    }
   };
 
   const handleClickOutside = (e) => {
