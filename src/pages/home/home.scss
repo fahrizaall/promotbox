@@ -62,6 +62,7 @@ $card-large: 33;
 
     .selected {
       border: 1px solid $btn;
+      border: none;
       color: white;
       background-color: $btn;
     }
@@ -71,6 +72,10 @@ $card-large: 33;
       background-color: white;
       padding-top: 6px;
       z-index: 1;
+
+      a {
+        margin-left: 0;
+      }
     }
 
     .tag-overflow {
@@ -195,7 +200,7 @@ $card-large: 33;
         }
       }
       .scroll-l {
-        left: 65px;
+        left: 53px;
       }
       .scroll-r {
         right: 0;
