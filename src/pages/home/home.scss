@@ -108,6 +108,9 @@ $card-large: 33;
     display: flex;
     justify-content: center;
 
+    .descWeb{
+      display: none;
+    }
     .poster-container {
       width: 90vw;
       margin: 0;

@@ -177,6 +177,7 @@ const Home = () => {
         </div>
       )}
       <main>
+        <p className="descWeb">PromotBox merupakan situs kumpulan poster event, lomba, seminar, webinar dan workshop</p>
         <div className="poster-container">
           {isLoading === true ? (
             <div className="load-nocontent-screen">
